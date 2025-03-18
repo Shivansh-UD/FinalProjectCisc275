@@ -29,6 +29,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div>Shivansh Gupta</div>
+        <div>Rishi Patel</div>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
