@@ -1,0 +1,75 @@
+.home-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    position: absolute;
+    top: 0; 
+    width: 100%; 
+    padding-top: 20px; 
+  }
+  
+  .TitleText h1 {
+    font-size: 48px; 
+    margin: 0; 
+  }
+  
+  .SubText h2 {
+    font-size: 20px; 
+    margin-top: 10px;
+  }
+
+  .Body h3 {
+    font-size: 15px; 
+    margin-top: 30px;
+  }
+
+  .BasicQuiz p {
+    font-size: 15px; 
+    margin-top: 90px;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    font-style: italic;
+    font-weight: bolder;
+  }
+
+  .DetailedQuiz p {
+    font-size: 15px; 
+    margin-top: 120px;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    font-style: italic;
+    font-weight: bolder;
+  }
+
+.BasicQuiz Button,
+.DetailedQuiz Button {
+  background-color: #000000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgb(255, 255, 255); 
+  transition: all 0.2s ease-in-out; 
+}
+
+.BasicQuiz Button:hover,
+.DetailedQuiz Button:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); 
+  transform: translateY(-2px); 
+}
+
+.BasicQuiz Button:active,
+.DetailedQuiz Button:active {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); 
+  transform: translateY(2px); 
+}
+
+
+
+
+
+  

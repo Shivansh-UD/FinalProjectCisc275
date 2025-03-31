@@ -1,55 +1,78 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
+import { Home } from './Components/homepage';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BasicQuiz } from './Components/basicquizpage';
+import { DetailedQuiz } from './Components/detailedquizpage';
+import { AboutUs } from './Components/aboutuspage';
 
-//local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
+// local storage and API Key
 let keyData = "";
 const saveKeyData = "MYKEY";
-const prevKey = localStorage.getItem(saveKeyData); //so it'll look like: MYKEY: <api_key_value here> in the local storage when you inspect
+const prevKey = localStorage.getItem(saveKeyData);
 if (prevKey !== null) {
   keyData = JSON.parse(prevKey);
 }
 
 function App() {
-  const [key, setKey] = useState<string>(keyData); //for api key input
+  const [key, setKey] = useState<string>(keyData); // for api key input
   
-  //sets the local storage item to the api key the user inputed
+  // sets the local storage item to the api key the user inputted
   function handleSubmit() {
     localStorage.setItem(saveKeyData, JSON.stringify(key));
-    window.location.reload(); //when making a mistake and changing the key again, I found that I have to reload the whole site before openai refreshes what it has stores for the local storage variable
+    window.location.reload(); // reload to reset the storage value after updating
   }
 
-  //whenever there's a change it'll store the api key in a local state called key but it won't be set in the local storage until the user clicks the submit button
+  // whenever there's a change, it stores the api key in a local state called 'key'
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
+
+  const [quizSelected, setQuizSelected] = useState<'basic' | 'detailed' | null>(null);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>Shivansh Gupta</div>
-        <div>Rishi Patel</div>
-        <div>Macklin Hill</div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Form>
-        <Form.Label>API Key:</Form.Label>
-        <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
-        <br></br>
-        <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-      </Form>
-    </div>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/basic-quiz" element={<BasicQuiz />} />
+            <Route path="/detailed-quiz" element={<DetailedQuiz />} />
+            <Route path="/home-page" element={<Home />} />
+            <Route path="/about-us-page" element={<AboutUs />}/>
+          </Routes>
+
+          <div className="quiz-buttons">
+            <Link to={quizSelected === 'detailed' ? '#' : '/basic-quiz'} style={{ pointerEvents: quizSelected === 'detailed' ? 'none' : 'auto' }}>
+              <Button onClick={() => setQuizSelected('basic')} disabled={quizSelected !== null}>Basic Quiz</Button>
+            </Link>
+
+            <Link to={quizSelected === 'basic' ? '#' : '/detailed-quiz'} style={{ pointerEvents: quizSelected === 'basic' ? 'none' : 'auto' }}>
+              <Button 
+                onClick={() => setQuizSelected('detailed')} disabled={quizSelected !== null}>Detailed Quiz</Button>
+            </Link>
+
+            <Link to="/home-page">
+              <Button onClick={() => setQuizSelected(null)}>Home Page</Button>
+            </Link>
+
+            <Link to="/about-us-page">
+              <Button onClick={() => setQuizSelected(null)}>About Us</Button>
+            </Link>
+          </div>
+        </header>
+
+        <Form>
+          <Form.Label>API Key:</Form.Label>
+          <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
+          <br />
+          <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
+        </Form>
+      </div>
+    </Router>
   );
 }
 
