@@ -3,7 +3,7 @@ import { Button} from 'react-bootstrap';
 import './homepage.css';
 import { Link } from 'react-router-dom';  
 
-
+//initial design for home page 
 export function Home(): React.JSX.Element {
 
     return (

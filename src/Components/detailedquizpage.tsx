@@ -1,6 +1,6 @@
 import './detailedquizpage.css';
 
-
+//initial design for the detailed quiz
 export function DetailedQuiz(): React.JSX.Element {
     return (
         <div className="DTitle">
