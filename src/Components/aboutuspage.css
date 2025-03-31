@@ -1,0 +1,9 @@
+.names { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 70px;  
+    margin-top: auto; 
+    margin-bottom: auto; 
+}
