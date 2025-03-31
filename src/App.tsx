@@ -33,7 +33,7 @@ function App() {
 
 
   return (
-    <Router>
+    <Router basename="/FinalProjectCisc275">
       <div className="App">
         <header className="App-header">
 
