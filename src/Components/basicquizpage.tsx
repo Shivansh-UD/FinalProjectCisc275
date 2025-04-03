@@ -4,7 +4,6 @@ import { Button, ProgressBar} from 'react-bootstrap';
 //initial design for the basic page 
 export function BasicQuiz(): React.JSX.Element {
   const [answers, setAnswers] = useState<string[]>(new Array(7).fill('')); //Store users answer for each question
-  const [currentQuestion, setCurrentQuestion] = useState(0); //Tracks the current question number
   const totalQuestions = 7; //7 Basic questions
 
   //function to handle button click
