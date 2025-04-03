@@ -20,6 +20,20 @@
   margin-top: 50px;
   text-align: center; 
 }
+
+.BQuestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.BQuestions button{
+  margin: 10px;
+  background-color: white;
+  color: black;
+}
+
+
 .Bresults {
   position: absolute;
   left: 160px; 
