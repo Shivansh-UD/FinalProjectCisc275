@@ -1,7 +1,7 @@
 import './aboutuspage.css';
 
 
-//about us page that has the info for all the group members
+//About us page that has the info for all the group members
 export function AboutUs(): React.JSX.Element {
     return (
         <div className="names">
