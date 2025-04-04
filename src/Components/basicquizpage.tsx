@@ -1,6 +1,6 @@
 import './basicquizpage.css';
 
-//initial design for the basic page 
+//Initial design for the basic page 
 export function BasicQuiz(): React.JSX.Element {
     return (
         <div className="BTitle">
