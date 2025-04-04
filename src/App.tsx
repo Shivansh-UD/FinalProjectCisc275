@@ -24,7 +24,7 @@ function App() {
     window.location.reload(); // reload to reset the storage value after updating
   }
 
-  // whenever there's a change, it stores the api key in a local state called 'key'
+  // Whenever there's a change, it stores the api key in a local state called 'key'
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
