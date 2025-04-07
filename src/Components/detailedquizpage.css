@@ -1,34 +1,64 @@
 .DTitle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    padding-top: 20px; 
-  }
-  
-  .DTitle h1 {
-    font-size: 48px; 
-    margin: 0; 
-    text-align: center; 
-  }
+  position: relative; /* Keeps progress bar & results within quiz area */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  .DTitle h2 {
-    font-size: 25px;
-    margin: 0;
-    margin-top: 50px;
-    text-align: center; 
-  }
+.DTitle h1 {
+  font-size: 48px;
+  margin: 0;
+  text-align: center;
+}
 
-  .Dresults {
-    position: absolute;
-    left: 160px; 
-    top: 150px; 
-  }
-  
-  .Dbar {
-    position: absolute;
-    right: 160px; 
-    top: 150px; 
-  }
+.DTitle h2 {
+  font-size: 25px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.detailed-question-section {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+  font-size: smaller;
+  box-sizing: border-box;
+}
+
+.detailed-question-block {
+  margin-bottom: 30px;
+  word-wrap: break-word;
+}
+
+.detailed-question-block p {
+  margin-bottom: 10px;
+}
+
+.detailed-question-block label {
+  display: block;
+  margin-bottom: 5px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Matching the BasicQuiz layout */
+.Dresults {
+  position: absolute;
+  left: 20px;
+  top: 150px;
+  max-width: 200px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.Dbar {
+  position: absolute;
+  right: 20px;
+  top: 150px;
+  max-width: 200px;
+  text-align: right;
+  word-wrap: break-word;
+}

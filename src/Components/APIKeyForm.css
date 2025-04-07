@@ -1,28 +1,15 @@
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #000000;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; 
-  align-items: center;
-  font-size: calc(10px + 2vmin);
+.api-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #111;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px #444;
   color: white;
-  padding: 20px;
-  box-sizing: border-box;
+  text-align: left;
 }
 
-.Page-Content {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.quiz-buttons {
+.Submit-Button {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -32,7 +19,7 @@
   position: static;
 }
 
-.quiz-buttons Button {
+.Submit-Button Button {
   background-color: #000000;
   border: none;
   padding: 10px 20px;
@@ -44,12 +31,12 @@
   transition: all 0.2s ease-in-out;
 }
 
-.quiz-buttons Button:hover {
+.Submit-Button Button:hover {
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
   transform: translateY(-2px);
 }
 
-.quiz-buttons Button:active {
+.Submit-Button Button:active {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transform: translateY(2px);
 }
