@@ -1,4 +1,6 @@
 import './detailedquizpage.css';
+import React, { useState } from 'react';
+
 
 const dQuestion = [
   {
@@ -31,8 +33,30 @@ const dQuestion = [
   }
 ];
 
-
+/*
+*FOR DETAILS ON HOW STATE AND FUNCTIONS WORK REFER TO THE BASIC QUIZ FILE AS IT IS THE SAME THING IMPLEMENTED HERE.
+*/
 export function DetailedQuiz(): React.JSX.Element {
+  const [questionAnswered, setQuestionAnswered]=useState<String[]>(Array(dQuestion.length).fill(""));
+
+  function selectOptions(qIndex:number, option:string){
+    let newArray=[...questionAnswered];
+    newArray[qIndex]=option;
+    setQuestionAnswered(newArray);
+  }
+
+  function notEmptyAnswers(): number{
+    let total:number=0;
+    for(let i=0;i<questionAnswered.length;i++){
+      if(questionAnswered[i]!==""){
+        total+=1;
+      }
+    }
+    return total;
+  }
+
+  const nonEmptyAnswers=notEmptyAnswers();
+  const percentDone=(nonEmptyAnswers/dQuestion.length)*100;
     return (
         <div className="DTitle">
           <h1>Welcome to the Detailed Quiz</h1>
@@ -48,6 +72,7 @@ export function DetailedQuiz(): React.JSX.Element {
                     type="radio"
                     name={`question-${qIndex}`}
                     value={option}
+                    onChange={()=>selectOptions(qIndex, option)}//calling the function
                   />
                   {option}
                 </label>
@@ -61,6 +86,9 @@ export function DetailedQuiz(): React.JSX.Element {
           </div>
           <div className="Dbar">
           <h2>Progress Bar:</h2>
+          <div className="detailed-progress-container">{/*the outer div is like the white box that appears and it starts t get filled in with color as the quiz progresses*/}
+            <div className="detailed-progress-bar" style={{ height: `${percentDone}%` }}></div>{/*this is the div that fills up the outer white box. in here we mention the height of the bar is based upon the variable we definded above to calculate the quiz progress*/}
+          </div>
           </div>
         </div>
       );
