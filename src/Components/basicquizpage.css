@@ -62,3 +62,21 @@
   text-align: right;
   word-wrap: break-word;
 }
+
+.progress-container {/*outside bar*/
+  width: 50%;           /* Full width of the container */
+  height: 1450px;          /* Fixed height for the progress bar */
+  background-color: #ddd;  /* Light gray background */
+  border-radius: 10px;   /* Optional: adds rounded corners */
+  position: relative;    /* Make sure the filler div stays inside */
+}
+
+.progress-bar {/*inside bar*/
+  position: absolute;
+  bottom: 0;            
+  width: 100%;          
+  background-color: #d000ff;  
+  border-radius: 10px;  
+  transition: height 0.3s ease-in-out;  
+}
+
