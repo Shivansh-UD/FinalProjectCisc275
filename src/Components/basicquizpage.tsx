@@ -67,7 +67,7 @@ export function BasicQuiz(): React.JSX.Element {
 
    //Functionality to show pop up
    useEffect(()=>{
-    if(quizProgress==100){
+    if(quizProgress===100){
       setShowWindow(true);
     }
   },[quizProgress]);
