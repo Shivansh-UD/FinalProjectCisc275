@@ -1,7 +1,7 @@
 import './detailedquizpage.css';
 import React, { useState, useEffect } from 'react';
 import { Popup } from './popup';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 
 const dQuestion = [
