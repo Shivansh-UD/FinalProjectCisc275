@@ -20,13 +20,13 @@ export function Home(): React.JSX.Element {
           </div>
 
           <div className='BasicQuiz'>
-            <p>The basic quiz consists of 5 questions that are very basic and can give us a general idea of what field would be the best for a individual</p>
+            <p>The basic quiz consists of 7 questions that are very basic and can give us a general idea of what field would be the best for a individual</p>
             <Link to="/basic-quiz">
             <Button>Basic Quiz</Button>
             </Link>
           </div>
           <div className='DetailedQuiz'>
-            <p>The detailed quiz is more of a in-depth look at what career a person should opt for. It consists of more than 5 questions and is more detailed than the basic quiz. The career results from this quiz are more direct and give better understanding for each career field.</p>
+            <p>The detailed quiz is more of a in-depth look at what career a person should opt for. It consists of more than 7 questions and is more detailed than the basic quiz. The career results from this quiz are more direct and give better understanding for each career field.</p>
             <Link to="/detailed-quiz">
             <Button>Detailed Quiz</Button>
             </Link>
