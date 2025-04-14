@@ -65,7 +65,7 @@ export function DetailedQuiz(): React.JSX.Element {
 
 //Functionality to show pop up
 useEffect(()=>{
-    if(percentDone==100){
+    if(percentDone===100){
       setWindow(true);
     }
   },[percentDone]);
