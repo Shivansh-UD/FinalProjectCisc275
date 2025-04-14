@@ -1,5 +1,7 @@
 import './detailedquizpage.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Popup } from './popup';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const dQuestion = [
@@ -39,6 +41,8 @@ const dQuestion = [
 export function DetailedQuiz(): React.JSX.Element {
   const [questionAnswered, setQuestionAnswered]=useState<String[]>(Array(dQuestion.length).fill(""));
 
+  const [window,setWindow]=useState<boolean>(false);
+
   function selectOptions(qIndex:number, option:string){
     let newArray=[...questionAnswered];
     newArray[qIndex]=option;
@@ -57,6 +61,15 @@ export function DetailedQuiz(): React.JSX.Element {
 
   const nonEmptyAnswers=notEmptyAnswers();
   const percentDone=(nonEmptyAnswers/dQuestion.length)*100;
+
+
+//Functionality to show pop up
+useEffect(()=>{
+    if(percentDone==100){
+      setWindow(true);
+    }
+  },[percentDone]);
+  
     return (
         <div className="DTitle">
           <h1>Welcome to the Detailed Quiz</h1>
@@ -90,6 +103,8 @@ export function DetailedQuiz(): React.JSX.Element {
             <div className="detailed-progress-bar" style={{ height: `${percentDone}%` }}></div>{/*this is the div that fills up the outer white box. in here we mention the height of the bar is based upon the variable we definded above to calculate the quiz progress*/}
           </div>
           </div>
+          <Popup show={window} onClose={() => setWindow(false)} />
+          <Toaster />
         </div>
       );
 }
