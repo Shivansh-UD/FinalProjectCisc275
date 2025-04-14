@@ -1,5 +1,7 @@
 import './basicquizpage.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Popup } from './popup';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const bQuestions = [
@@ -35,8 +37,12 @@ const bQuestions = [
 
 export function BasicQuiz(): React.JSX.Element {
   const [answeredQuestions, setAnsweredQuestions]=useState<string[]>(Array(bQuestions.length).fill(""));//this starts with a array of empty strings and it has as many empty strings as the length of bQuestions
+  
+  
+  const [showWindow, setShowWindow]=useState<boolean>(false);//Used to to show a popup bar once the quiz is done (initially its false)
 
-  function optionSelect(qIndex: number, option: string) { //takes in the index of the question that is being answerd and the option choice selected for that question
+
+   function optionSelect(qIndex: number, option: string) { //takes in the index of the question that is being answerd and the option choice selected for that question
     const updatedAnswers = [...answeredQuestions]; //creates a new copy of answeredQuestions from above (state)
     updatedAnswers[qIndex] = option;  //KEY: sets the option selected for a specific question to that questions position on the array using the qIndex. yaha pe ye basically uss copied array mei ja raha hai uss position pe jo question hai aur uska answer(option) ko set kar raha hai at that index.
     setAnsweredQuestions(updatedAnswers); //finally here we are updating the original array with the answer choice finalized  
@@ -57,6 +63,14 @@ export function BasicQuiz(): React.JSX.Element {
   const numOfAnswers=notNullAnswers();//calling the function to get count
   const quizProgress=(numOfAnswers/bQuestions.length)*100;//this is used to check what percent of the quiz is completed and how much is still left to do 
 
+
+
+   //Functionality to show pop up
+   useEffect(()=>{
+    if(quizProgress==100){
+      setShowWindow(true);
+    }
+  },[quizProgress]);
 
   return (
     <div className="BTitle">
@@ -95,6 +109,8 @@ export function BasicQuiz(): React.JSX.Element {
         </div>
 
       </div>
+      <Popup show={showWindow} onClose={() => setShowWindow(false)} />
+      <Toaster />
     </div>
   );
 }
