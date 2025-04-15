@@ -1,81 +1,95 @@
+body {
+  background-color: black;
+  color: white;
+}
+
 .DTitle {
-  position: relative; /* Keeps progress bar & results within quiz area */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  padding-top: 30px;
   width: 100%;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.DTitle h1 {
-  font-size: 48px;
-  margin: 0;
+.DTitle h1, .DTitle h2 {
   text-align: center;
-}
-
-.DTitle h2 {
-  font-size: 25px;
-  margin-top: 50px;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
 .detailed-question-section {
   width: 100%;
-  max-width: 800px;
-  padding: 0 20px;
-  font-size: smaller;
-  box-sizing: border-box;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
 }
 
-.detailed-question-block {
-  margin-bottom: 30px;
-  word-wrap: break-word;
+.detailed-question-section p {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
-.detailed-question-block p {
-  margin-bottom: 10px;
-}
-
-.detailed-question-block label {
+.detailed-question-section label {
   display: block;
-  margin-bottom: 5px;
-  white-space: normal;
-  word-wrap: break-word;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding: 8px;
+  background-color: #222;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Matching the BasicQuiz layout */
-.Dresults {
-  position: absolute;
-  left: 20px;
-  top: 150px;
-  max-width: 200px;
-  text-align: left;
-  word-wrap: break-word;
+.detailed-question-section input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #d000ff;
+}
+
+.detailed-question-section label:hover {
+  background-color: #2b2b2b;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #d000ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 0, 255, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #a000cc;
+  transform: translateY(-2px);
 }
 
 .Dbar {
-  position: absolute;
-  right: 20px;
-  top: 150px;
-  max-width: 200px;
-  text-align: right;
-  word-wrap: break-word;
+  width: 80%;
+  margin: 30px auto;
+  text-align: center;
 }
 
-.detailed-progress-container {/*outside bar*/
-  width: 50%;           /* Full width of the container */
-  height: 1450px;          /* Fixed height for the progress bar */
-  background-color: #ddd;  /* Light gray background */
-  border-radius: 10px;   /* Optional: adds rounded corners */
-  position: relative;    /* Make sure the filler div stays inside */
+.detailed-progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px #000;
 }
 
-.detailed-progress-bar {/*inside bar*/
-  position: absolute;
-  bottom: 0;            
-  width: 100%;          
-  background-color: #d000ff;  
-  border-radius: 10px;  
-  transition: height 0.3s ease-in-out;  
+.detailed-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #8000ff, #d000ff);
+  transition: width 0.4s ease-in-out;
+  border-radius: 10px;
 }

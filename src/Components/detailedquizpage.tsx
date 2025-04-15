@@ -3,108 +3,102 @@ import React, { useState, useEffect } from 'react';
 import { Popup } from './popup';
 import { Toaster } from 'react-hot-toast';
 
-
 const dQuestion = [
   {
-    question: "What kind of challenges do you enjoy tackling?",
-    options: ["Logical puzzles and analytical problems", "Helping people solve personal or professional issues", "Designing and bringing creative ideas to life", "Managing resources and planning for efficiency"]
+    question: "What kind of challenges do you enjoy?",
+    options: ["Logical puzzles", "Helping people", "Creative design", "Planning resources"]
   },
   {
-    question: "Which of these tasks sounds most interesting to you?",
-    options: ["Conducting research and analyzing data", "Teaching, counseling, or providing healthcare", "Writing, designing, or creating media content", "Running a business, marketing, or handling finances"]
+    question: "Which tasks sound most interesting?",
+    options: ["Research & data", "Teaching & healthcare", "Media creation", "Business ops"]
   },
   {
-    question: "How important is job stability to you?",
-    options: ["Extremely important–I want a secure and predictable career", "Somewhat important–I prefer a mix of stability and flexibility", "Not very important–I prioritize passion over security", "Not important at all–I thrive on risk and innovation"]
+    question: "How important is job stability?",
+    options: ["Very", "Somewhat", "Not much", "Not at all"]
   },
   {
-    question: "Which of these best describes your ideal work-life balance?",
-    options: ["I don't mind long hours as long as I enjoy my work", "I prefer a structured schedule with clear work-life separation", "I want the freedom to work on my own terms", "I enjoy a dynamic schedule with variety"]
+    question: "Ideal work-life balance?",
+    options: ["Long hours if fun", "Structured schedule", "Freedom-based", "Dynamic"]
   },
   {
-    question: "What kind of work environment do you prefer?",
-    options: ["A lab, office, or research setting", "A school, hospital, or public service organization", "A creative studio, stage, or digital workspace", "A corporate office, startup, or business environment"]
+    question: "Preferred environment?",
+    options: ["Lab/office", "School/hospital", "Studio/digital", "Business/startup"]
   },
   {
-    question: "What is most important to you in a career?",
-    options: ["Intellectual stimulation and problem-solving", "Making a difference in people’s lives", "Expressing creativity and individuality", "Financial success and professional growth"]
+    question: "Most important career aspect?",
+    options: ["Problem-solving", "Helping people", "Creativity", "Success"]
   },
   {
-    question: "What type of impact do you want your work to have?",
-    options: ["I want to make a direct, positive impact on individuals or communities.", "I want to drive innovation and contribute to cutting-edge advancements in my field.", "I want to create art, media, or products that inspire and influence others.", "I want to build and grow organizations that shape industries and economies."]
+    question: "What impact do you want?",
+    options: ["Direct help", "Innovate", "Inspire", "Grow orgs"]
   }
 ];
 
-/*
-*FOR DETAILS ON HOW STATE AND FUNCTIONS WORK REFER TO THE BASIC QUIZ FILE AS IT IS THE SAME THING IMPLEMENTED HERE.
-*/
 export function DetailedQuiz(): React.JSX.Element {
-  const [questionAnswered, setQuestionAnswered]=useState<String[]>(Array(dQuestion.length).fill(""));
+  const [answers, setAnswers] = useState<string[]>(Array(dQuestion.length).fill(""));
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
-  const [window,setWindow]=useState<boolean>(false);
+  const percentDone = (answers.filter(ans => ans !== "").length / dQuestion.length) * 100;
 
-  function selectOptions(qIndex:number, option:string){
-    let newArray=[...questionAnswered];
-    newArray[qIndex]=option;
-    setQuestionAnswered(newArray);
+  function handleOptionSelect(option: string) {
+    const updated = [...answers];
+    updated[currentIndex] = option;
+    setAnswers(updated);
   }
 
-  function notEmptyAnswers(): number{
-    let total:number=0;
-    for(let i=0;i<questionAnswered.length;i++){
-      if(questionAnswered[i]!==""){
-        total+=1;
-      }
+  function handleNext() {
+    if (currentIndex < dQuestion.length - 1) {
+      setCurrentIndex(prev => prev + 1);
     }
-    return total;
   }
 
-  const nonEmptyAnswers=notEmptyAnswers();
-  const percentDone=(nonEmptyAnswers/dQuestion.length)*100;
+  function handleSubmit() {
+    setShowPopup(true);
+  }
 
-
-//Functionality to show pop up
-useEffect(()=>{
-    if(percentDone===100){
-      setWindow(true);
+  useEffect(() => {
+    if (answers.every(ans => ans !== "")) {
+      setShowPopup(true);
     }
-  },[percentDone]);
-  
-    return (
-        <div className="DTitle">
-          <h1>Welcome to the Detailed Quiz</h1>
-          <h2>Questions:</h2>
-          <div className="detailed-question-section">
-        {dQuestion.map((q, qIndex) => (
-          <div className="detailed-question-block" key={qIndex}>
-      <p><strong>{qIndex + 1}. {q.question}</strong></p>
-      {q.options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <label>
-                  <input
-                    type="radio"
-                    name={`question-${qIndex}`}
-                    value={option}
-                    onChange={()=>selectOptions(qIndex, option)}//calling the function
-                  />
-                  {option}
-                </label>
-              </div>
-            ))}
-          </div>
+  }, [answers]);
+
+  return (
+    <div className="DTitle">
+      <h1>Detailed Quiz</h1>
+      <h2>Question {currentIndex + 1} of {dQuestion.length}</h2>
+
+      <div className="detailed-question-section">
+        <p><strong>{dQuestion[currentIndex].question}</strong></p>
+        {dQuestion[currentIndex].options.map((option, idx) => (
+          <label key={idx}>
+            <input
+              type="radio"
+              name={`q${currentIndex}`}
+              value={option}
+              checked={answers[currentIndex] === option}
+              onChange={() => handleOptionSelect(option)}
+            />
+            {option}
+          </label>
         ))}
       </div>
-          <div className="Dresults">
-          <h2>Results:</h2>
-          </div>
-          <div className="Dbar">
-          <h2>Progress Bar:</h2>
-          <div className="detailed-progress-container">{/*the outer div is like the white box that appears and it starts t get filled in with color as the quiz progresses*/}
-            <div className="detailed-progress-bar" style={{ height: `${percentDone}%` }}></div>{/*this is the div that fills up the outer white box. in here we mention the height of the bar is based upon the variable we definded above to calculate the quiz progress*/}
-          </div>
-          </div>
-          <Popup show={window} onClose={() => setWindow(false)} />
-          <Toaster />
+
+      <div className="Dbar">
+        <div className="detailed-progress-container">
+          <div className="detailed-progress-bar" style={{ width: `${percentDone}%` }} />
         </div>
-      );
+      </div>
+
+      {currentIndex < dQuestion.length - 1 && answers[currentIndex] !== "" && (
+        <button onClick={handleNext}>Next</button>
+      )}
+      {currentIndex === dQuestion.length - 1 && answers[currentIndex] !== "" && (
+        <button onClick={handleSubmit}>Submit</button>
+      )}
+
+      <Popup show={showPopup} onClose={() => setShowPopup(false)} />
+      <Toaster />
+    </div>
+  );
 }

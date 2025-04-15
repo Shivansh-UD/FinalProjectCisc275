@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './APIKeyForm.css';
+import { toast, Toaster } from 'react-hot-toast';
 
 const saveKeyData = "MYKEY";
 const prevKey = localStorage.getItem(saveKeyData);
@@ -10,8 +11,14 @@ export function APIKeyForm(): React.JSX.Element {
   const [key, setKey] = useState<string>(prevKey ? JSON.parse(prevKey) : "");
 
   function handleSubmit() {
+    if (key.trim() === "") {
+      toast.error("Please enter a valid API key.");
+      return;
+    }
+
     localStorage.setItem(saveKeyData, JSON.stringify(key));
-    window.location.reload(); // Optional: reload app after saving key
+    toast.success("API Key saved!");
+    setTimeout(() => window.location.reload(), 1500); // Give user time to see toast
   }
 
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
@@ -34,6 +41,7 @@ export function APIKeyForm(): React.JSX.Element {
           <Button onClick={handleSubmit}>Submit</Button>
         </div>
       </Form>
+      <Toaster />
     </div>
   );
 }

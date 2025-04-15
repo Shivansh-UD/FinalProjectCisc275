@@ -1,75 +1,89 @@
 .home-container {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    position: absolute;
-    top: 0; 
-    width: 100%; 
-    padding-top: 20px; 
-  }
-  
-  .TitleText h1 {
-    font-size: 48px; 
-    margin: 0; 
-  }
-  
-  .SubText h2 {
-    font-size: 20px; 
-    margin-top: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #000000, #1a001a);
+  background-size: 200% 200%;
+  animation: pulseBackground 15s ease infinite;
+  color: white;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-  .Body h3 {
-    font-size: 15px; 
-    margin-top: 30px;
-  }
+@keyframes pulseBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  .BasicQuiz p {
-    font-size: 15px; 
-    margin-top: 90px;
-    width: 50%;
-    margin-right: auto;
-    margin-left: auto;
-    font-style: italic;
-    font-weight: bolder;
-  }
+.TitleText h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #d000ff;
+  text-align: center;
+}
 
-  .DetailedQuiz p {
-    font-size: 15px; 
-    margin-top: 120px;
-    width: 50%;
-    margin-right: auto;
-    margin-left: auto;
-    font-style: italic;
-    font-weight: bolder;
-  }
+.TitleText h2 {
+  font-size: 20px;
+  color: #ccc;
+  text-align: center;
+  margin-bottom: 50px;
+  max-width: 700px;
+}
 
-.BasicQuiz Button,
-.DetailedQuiz Button {
-  background-color: #000000;
+.quiz-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.quiz-box {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(208, 0, 255, 0.1);
+}
+
+.quiz-box h3 {
+  color: #d000ff;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.quiz-box p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.quiz-box Button,
+.nav-buttons Button {
+  background-color: #d000ff;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
   color: white;
   cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgb(255, 255, 255); 
-  transition: all 0.2s ease-in-out; 
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* glowing white shadow */
+  transition: all 0.3s ease-in-out;
 }
 
-.BasicQuiz Button:hover,
-.DetailedQuiz Button:hover {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); 
-  transform: translateY(-2px); 
+.quiz-box Button:hover,
+.nav-buttons Button:hover {
+  background-color: #a000cc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.5);
 }
 
-.BasicQuiz Button:active,
-.DetailedQuiz Button:active {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); 
-  transform: translateY(2px); 
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 60px;
 }
-
-
-
-
-
-  
