@@ -3,11 +3,11 @@
 }
 
 .App-header {
-  background-color: #000000;
+  background: linear-gradient(135deg, #000000, #1a001a);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -26,30 +26,30 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
   margin-top: 40px;
-  margin-bottom: 20px;
-  position: static;
+  margin-bottom: 30px;
 }
 
 .quiz-buttons Button {
-  background-color: #000000;
+  background-color: #d000ff;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 24px;
   font-size: 16px;
   color: white;
   cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgb(255, 255, 255);
-  transition: all 0.2s ease-in-out;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease-in-out;
 }
 
 .quiz-buttons Button:hover {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+  background-color: #a000cc;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
 }
 
 .quiz-buttons Button:active {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transform: translateY(2px);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
 }

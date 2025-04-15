@@ -18,7 +18,7 @@ export function APIKeyForm(): React.JSX.Element {
 
     localStorage.setItem(saveKeyData, JSON.stringify(key));
     toast.success("API Key saved!");
-    setTimeout(() => window.location.reload(), 1500); // Give user time to see toast
+    setTimeout(() => window.location.reload(), 1500);
   }
 
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
@@ -27,20 +27,24 @@ export function APIKeyForm(): React.JSX.Element {
 
   return (
     <div className="api-form-container">
-      <h2>Enter Your API Key</h2>
-      <Form>
-        <Form.Label>API Key:</Form.Label>
-        <Form.Control 
-          type="password" 
-          placeholder="Insert API Key Here" 
-          onChange={changeKey}
-          value={key}
-        />
-        <br />
-        <div className="Submit-Button">
-          <Button onClick={handleSubmit}>Submit</Button>
-        </div>
-      </Form>
+      <div className="form-card">
+        <h2>🔐 Enter Your OpenAI API Key</h2>
+        <p className="form-subtext">
+          Your key is securely stored in your browser and never shared.
+        </p>
+        <Form>
+          <Form.Control
+            type="password"
+            placeholder="sk-..."
+            onChange={changeKey}
+            value={key}
+            className="key-input"
+          />
+          <div className="submit-button">
+            <Button onClick={handleSubmit}>Submit Key</Button>
+          </div>
+        </Form>
+      </div>
       <Toaster />
     </div>
   );
