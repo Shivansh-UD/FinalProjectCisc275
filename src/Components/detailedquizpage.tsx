@@ -82,108 +82,96 @@ const dQuestion = [
   }
 ];
 
-/*
- * FOR DETAILS ON HOW STATE AND FUNCTIONS WORK REFER TO THE BASIC QUIZ FILE AS IT IS THE SAME THING IMPLEMENTED HERE.
- */
 export function DetailedQuiz(): React.JSX.Element {
-  const [questionAnswered, setQuestionAnswered] = useState<string[]>(Array(dQuestion.length).fill(""));
-  const [window, setWindow] = useState<boolean>(false);
+  const [answers, setAnswers] = useState<string[]>(Array(dQuestion.length).fill(""));
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
-  function selectOptions(qIndex: number, option: string) {
-    let newArray = [...questionAnswered];
-    newArray[qIndex] = option;
-    setQuestionAnswered(newArray);
+  const percentDone = (answers.filter(ans => ans !== "").length / dQuestion.length) * 100;
+
+  function handleOptionSelect(value: string) {
+    const updated = [...answers];
+    updated[currentIndex] = value;
+    setAnswers(updated);
   }
 
-  function notEmptyAnswers(): number {
-    let total: number = 0;
-    for (let i = 0; i < questionAnswered.length; i++) {
-      if (questionAnswered[i] !== "") {
-        total += 1;
-      }
+  function handleNext() {
+    if (currentIndex < dQuestion.length - 1) {
+      setCurrentIndex(prev => prev + 1);
     }
-    return total;
   }
 
-  const nonEmptyAnswers = notEmptyAnswers();
-  const percentDone = (nonEmptyAnswers / dQuestion.length) * 100;
+  function handleSubmit() {
+    setShowPopup(true);
+  }
 
-  // Functionality to show pop up
   useEffect(() => {
-    if (percentDone === 100) {
-      setWindow(true);
+    if (answers.every(ans => ans !== "")) {
+      setShowPopup(true);
     }
-  }, [percentDone]);
+  }, [answers]);
+
+  const currentQuestion = dQuestion[currentIndex];
 
   return (
     <div className="DTitle">
-      <h1>Welcome to the Detailed Quiz</h1>
-      <h2>Questions:</h2>
+      <h1>Detailed Career Quiz</h1>
+      <h2>Question {currentIndex + 1} of {dQuestion.length}</h2>
 
       <div className="detailed-question-section">
-        {dQuestion.map((q, qIndex) => (
-          <div className="detailed-question-block" key={qIndex}>
-            <p><strong>{qIndex + 1}. {q.question}</strong></p>
+        <p><strong>{currentQuestion.question}</strong></p>
 
-            {q.type === "mc" && q.options && q.options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <label>
-                  <input
-                    type="radio"
-                    name={`question-${qIndex}`}
-                    value={option}
-                    onChange={() => selectOptions(qIndex, option)}
-                    checked={questionAnswered[qIndex] === option}
-                  />
-                  {option}
-                </label>
-              </div>
-            ))}
+        {currentQuestion.type === "mc" && currentQuestion.options?.map((option, idx) => (
+          <label key={idx}>
+            <input
+              type="radio"
+              name={`q${currentIndex}`}
+              value={option}
+              checked={answers[currentIndex] === option}
+              onChange={() => handleOptionSelect(option)}
+            />
+            {option}
+          </label>
+        ))}
 
-            {q.type === "text" && (
-              <div>
-                <textarea
-                  rows={3}
-                  cols={50}
-                  value={questionAnswered[qIndex]}
-                  onChange={(e) => selectOptions(qIndex, e.target.value)}
-                  placeholder="Type your response here..."
-                />
-              </div>
-            )}
+        {currentQuestion.type === "text" && (
+          <textarea
+            rows={4}
+            cols={60}
+            value={answers[currentIndex]}
+            onChange={(e) => handleOptionSelect(e.target.value)}
+            placeholder="Type your answer here..."
+          />
+        )}
 
-            {q.type === "scale" && q.scale && (
-              <div className="scale-input">
-                {q.scale.map((num) => (
-                  <label key={num} style={{ marginRight: "10px" }}>
-                    <input
-                      type="radio"
-                      name={`question-${qIndex}`}
-                      value={num}
-                      onChange={() => selectOptions(qIndex, String(num))}
-                      checked={questionAnswered[qIndex] === String(num)}
-                    />
-                    {num}
-                  </label>
-                ))}
-              </div>
-            )}
-          </div>
+        {currentQuestion.type === "scale" && currentQuestion.scale?.map((num) => (
+          <label key={num} style={{ marginRight: "10px" }}>
+            <input
+              type="radio"
+              name={`q${currentIndex}`}
+              value={String(num)}
+              checked={answers[currentIndex] === String(num)}
+              onChange={() => handleOptionSelect(String(num))}
+            />
+            {num}
+          </label>
         ))}
       </div>
 
-      <div className="Dresults">
-        <h2>Results:</h2>
-      </div>
-
       <div className="Dbar">
-        <h2>Progress Bar:</h2>
         <div className="detailed-progress-container">
-          <div className="detailed-progress-bar" style={{ height: `${percentDone}%` }}></div>
+          <div className="detailed-progress-bar" style={{ width: `${percentDone}%` }} />
         </div>
       </div>
 
-      <Popup show={window} onClose={() => setWindow(false)} />
+      {currentIndex < dQuestion.length - 1 && answers[currentIndex] !== "" && (
+        <button onClick={handleNext}>Next</button>
+      )}
+      {currentIndex === dQuestion.length - 1 && answers[currentIndex] !== "" && (
+        <button onClick={handleSubmit}>Submit</button>
+      )}
+
+      <Popup show={showPopup} onClose={() => setShowPopup(false)} />
       <Toaster />
     </div>
   );

@@ -1,14 +1,30 @@
+// src/Components/aboutuspage.tsx
 import './aboutuspage.css';
 
-
-//About us page that has the info for all the group members
 export function AboutUs(): React.JSX.Element {
-    return (
-        <div className="names">
-          <div>Shivansh Gupta - shivansh@udel.edu</div>
-            <div>Rishi Patel - riship@udel.edu</div>
-            <div>Macklin Hill - macklin@udel.edu</div>
-            <div>Devashish Kaluvakolanu - kaldevas@udel.edu</div>
+  return (
+    <div className="about-container">
+      <h1>👥 About Us</h1>
+      <p>Meet the team behind the Career Path Quiz project:</p>
+
+      <div className="member-list">
+        <div className="member">
+          <strong>Shivansh Gupta</strong>
+          <span>shivansh@udel.edu</span>
         </div>
-      );
+        <div className="member">
+          <strong>Rishi Patel</strong>
+          <span>riship@udel.edu</span>
+        </div>
+        <div className="member">
+          <strong>Macklin Hill</strong>
+          <span>macklin@udel.edu</span>
+        </div>
+        <div className="member">
+          <strong>Devashish Kaluvakolanu</strong>
+          <span>kaldevas@udel.edu</span>
+        </div>
+      </div>
+    </div>
+  );
 }

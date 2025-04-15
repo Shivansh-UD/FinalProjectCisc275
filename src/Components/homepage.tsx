@@ -1,36 +1,47 @@
-//import React, { useState } from 'react';
-import { Button} from 'react-bootstrap';
 import './homepage.css';
-import { Link } from 'react-router-dom';  
+import { Link } from 'react-router-dom';
 
-//initial design for home page 
 export function Home(): React.JSX.Element {
+  return (
+    <div className="home-container">
+      <div className="TitleText">
+        <h1>🎯 Career Path Quiz</h1>
+        <h2>Discover the career that suits your personality and preferences.</h2>
+        <p className="subtext">
+          Take our interactive quizzes to match your strengths, interests, and lifestyle with real-world career paths.
+        </p>
+      </div>
 
-    return (
-        <div className="home-container">
-          <div className="TitleText">
-            <h1>Welcome to the Career Quiz</h1>
-          </div>
-          <div className="SubText">
-            <h2>Take a quiz and find out what type of career best suits you!</h2>
-          </div>
-          
-          <div className='Body'>
-            <h3>To get started please select one of the two types of quiz's by clicking the buttons below.</h3>
-          </div>
+      <div className="feature-grid">
+        <div className="feature">🔍 Personalized Results</div>
+        <div className="feature">🕒 Just 5-7 Minutes</div>
+        <div className="feature">🎓 Built by UD Students</div>
+        <div className="feature">🧠 Based on Personality Research</div>
+      </div>
 
-          <div className='BasicQuiz'>
-            <p>The basic quiz consists of 7 questions that are very basic and can give us a general idea of what field would be the best for a individual</p>
-            <Link to="/basic-quiz">
-            <Button>Basic Quiz</Button>
-            </Link>
+      <div className="quiz-section">
+        <Link to="/basic-quiz" className="quiz-link">
+          <div className="quiz-box">
+            <h3>Basic Assessment</h3>
+            <p>
+              A quick 7-question quiz to get a general sense of what career field might fit you.
+            </p>
           </div>
-          <div className='DetailedQuiz'>
-            <p>The detailed quiz is more of a in-depth look at what career a person should opt for. It consists of more than 7 questions and is more detailed than the basic quiz. The career results from this quiz are more direct and give better understanding for each career field.</p>
-            <Link to="/detailed-quiz">
-            <Button>Detailed Quiz</Button>
-            </Link>
+        </Link>
+
+        <Link to="/detailed-quiz" className="quiz-link">
+          <div className="quiz-box">
+            <h3>Detailed Assessment</h3>
+            <p>
+              A deeper 16-question quiz with more thoughtful insights into your interests and goals.
+            </p>
           </div>
-        </div>
-    );
+        </Link>
+      </div>
+
+      <footer className="home-footer">
+        <p>✨ “The future belongs to those who prepare for it today.” — Malcolm X</p>
+      </footer>
+    </div>
+  );
 }
