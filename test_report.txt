@@ -12,16 +12,15 @@ FAIL src/App.test.tsx
       src/App.tsx
       src/App.test.tsx
 
-      2 | import { Button} from 'react-bootstrap';
-      3 | import './homepage.css';
-    > 4 | import { Link } from 'react-router-dom';  
+      1 | import './homepage.css';
+    > 2 | import { Link } from 'react-router-dom';
         | ^
-      5 |
-      6 | //initial design for home page 
-      7 | export function Home(): React.JSX.Element {
+      3 |
+      4 | export function Home(): React.JSX.Element {
+      5 |   return (
 
       at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
-      at Object.<anonymous> (src/Components/homepage.tsx:4:1)
+      at Object.<anonymous> (src/Components/homepage.tsx:2:1)
       at Object.<anonymous> (src/App.tsx:4:1)
       at Object.<anonymous> (src/App.test.tsx:3:1)
       at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
@@ -29,27 +28,6 @@ FAIL src/App.test.tsx
       at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
------------------------|---------|----------|---------|---------|-------------------
-File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
------------------------|---------|----------|---------|---------|-------------------
-All files              |       0 |        0 |       0 |       0 |                   
- src                   |       0 |        0 |       0 |       0 |                   
-  App.tsx              |       0 |        0 |       0 |       0 | 20-56             
-  index.tsx            |       0 |      100 |     100 |       0 | 7-19              
-  reportWebVitals.ts   |       0 |        0 |       0 |       0 | 3-10              
- src/Components        |       0 |        0 |       0 |       0 |                   
-  APIKeyForm.tsx       |       0 |        0 |       0 |       0 | 6-21              
-  aboutuspage.tsx      |       0 |      100 |       0 |       0 | 6                 
-  basicquizpage.tsx    |       0 |        0 |       0 |       0 | 7-112             
-  detailedquizpage.tsx |       0 |        0 |       0 |       0 | 6-186             
-  homepage.tsx         |       0 |      100 |       0 |       0 | 9                 
-  popup.tsx            |       0 |        0 |       0 |       0 | 11-19             
------------------------|---------|----------|---------|---------|-------------------
-Test Suites: 1 failed, 1 total
-Tests:       0 total
-Snapshots:   0 total
-Time:        3.195 s
-Ran all test suites.
 [0;33mOne of your dependencies, babel-preset-react-app, is importing the
 "@babel/plugin-proposal-private-property-in-object" package without
 declaring it in its dependencies. This is currently working because
@@ -62,3 +40,25 @@ ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
 your devDependencies to work around this error. This will make this message
 go away.[0m
   
+-----------------------|---------|----------|---------|---------|-------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------|---------|----------|---------|---------|-------------------
+All files              |       0 |        0 |       0 |       0 |                   
+ src                   |       0 |        0 |       0 |       0 |                   
+  App.tsx              |       0 |        0 |       0 |       0 | 20-56             
+  index.tsx            |       0 |      100 |     100 |       0 | 7-19              
+  reportWebVitals.ts   |       0 |        0 |       0 |       0 | 3-10              
+ src/Components        |       0 |        0 |       0 |       0 |                   
+  APIKeyForm.tsx       |       0 |        0 |       0 |       0 | 7-28              
+  aboutuspage.tsx      |       0 |      100 |       0 |       0 | 5                 
+  basicquizpage.tsx    |       0 |        0 |       0 |       0 | 7-123             
+  detailedquizpage.tsx |       0 |        0 |       0 |       0 | 6-174             
+  homepage.tsx         |       0 |      100 |       0 |       0 | 5                 
+  openaiService.ts     |       0 |        0 |       0 |       0 | 2-36              
+  popup.tsx            |       0 |        0 |       0 |       0 | 11-19             
+-----------------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        3.429 s
+Ran all test suites.
