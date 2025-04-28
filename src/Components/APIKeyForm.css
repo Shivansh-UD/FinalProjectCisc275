@@ -1,0 +1,73 @@
+.api-form-container {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #000000, #1a001a);
+  color: white;
+  padding: 30px 20px 10px; /* Reduced bottom padding */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-card {
+  background-color: #1a1a1a;
+  padding: 50px;
+  border-radius: 18px;
+  box-shadow: 0 0 30px rgba(208, 0, 255, 0.12);
+  max-width: 650px;
+  width: 100%;
+  text-align: center;
+  margin-top: 40px; /* Add this to simulate spacing */
+  animation: fadeInUp 0.6s ease;
+}
+
+.form-card h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #d000ff;
+  margin-bottom: 20px;
+}
+
+.form-subtext {
+  color: #aaa;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.key-input {
+  background-color: #2a2a2a;
+  border: 1px solid #555;
+  color: white;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 18px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.submit-button Button {
+  background-color: #d000ff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.submit-button Button:hover {
+  background-color: #a000cc;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
