@@ -1,8 +1,9 @@
+// src/Components/basicquizpage.tsx
 import './basicquizpage.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Popup } from './popup';
-import { Toaster } from 'react-hot-toast';
-import { fetchCareerResults } from './openaiService';
+import { Toaster, toast } from 'react-hot-toast';
+import { getCareerSuggestionsFromGPT } from './openaiService'; // adjust path if needed
 
 const bQuestions = [
   {
@@ -39,8 +40,8 @@ export function BasicQuiz(): React.JSX.Element {
   const [answers, setAnswers] = useState<string[]>(Array(bQuestions.length).fill(""));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const [gptOutput, setGptOutput] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [resultText, setResultText] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const percentDone = (answers.filter(ans => ans !== "").length / bQuestions.length) * 100;
@@ -61,21 +62,20 @@ export function BasicQuiz(): React.JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetchCareerResults(answers, "basic");
-      setResultText(response);
+      const response = await getCareerSuggestionsFromGPT(answers);
+      setGptOutput(response);
+      toast.success("Career suggestions generated!");
+      setShowPopup(true);  // ✅ Only show popup after GPT responds
     } catch (err: any) {
-      setError(err.message);
+      console.error(err);
+      toast.error("Failed to get suggestions. Try again!");
+      setError(err.message || "Unknown error occurred.");
     } finally {
-      setShowPopup(true);
       setLoading(false);
     }
   }
 
-  useEffect(() => {
-    if (answers.every(ans => ans !== "")) {
-      setShowPopup(true);
-    }
-  }, [answers]);
+  const currentQ = bQuestions[currentIndex];
 
   return (
     <div className="BTitle">
@@ -83,9 +83,9 @@ export function BasicQuiz(): React.JSX.Element {
       <h2>Question {currentIndex + 1} of {bQuestions.length}</h2>
 
       <div className="question-section">
-        <p><strong>{bQuestions[currentIndex].question}</strong></p>
-        {bQuestions[currentIndex].options.map((option, idx) => (
-          <label key={idx}>
+        <p><strong>{currentQ.question}</strong></p>
+        {currentQ.options.map((option, idx) => (
+          <label key={idx} style={{ display: "block", margin: "8px 0" }}>
             <input
               type="radio"
               name={`q${currentIndex}`}
@@ -93,30 +93,34 @@ export function BasicQuiz(): React.JSX.Element {
               checked={answers[currentIndex] === option}
               onChange={() => handleOptionSelect(option)}
             />
-            {option}
+            {" "}{option}
           </label>
         ))}
       </div>
 
-      <div className="Bbar">
+      <div className="Bbar" style={{ marginTop: "20px" }}>
         <div className="progress-container">
-          <div className="progress-bar" style={{ width: `${percentDone}%` }} />
+          <div className="progress-bar" style={{ width: `${percentDone}%`, height: "10px", backgroundColor: "#d000ff" }} />
         </div>
       </div>
 
       {currentIndex < bQuestions.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleNext}>Next</button>
+        <button onClick={handleNext} style={{ marginTop: "20px" }}>Next</button>
       )}
       {currentIndex === bQuestions.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit} style={{ marginTop: "20px" }}>
+          {loading ? "Generating..." : "Submit"}
+        </button>
       )}
 
       {showPopup && (
-        <div className="results-section">
+        <div className="results-section" style={{ marginTop: "30px" }}>
           <h2>Career Recommendation:</h2>
           {loading && <p>Loading GPT suggestions...</p>}
           {error && <p style={{ color: "red" }}>{error}</p>}
-          {!loading && !error && <pre style={{ whiteSpace: "pre-wrap" }}>{resultText}</pre>}
+          {!loading && !error && (
+            <pre style={{ whiteSpace: "pre-wrap" }}>{gptOutput}</pre>
+          )}
         </div>
       )}
 
