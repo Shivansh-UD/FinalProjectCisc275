@@ -1,20 +1,25 @@
-// src/Services/openaiService.ts
 import axios from 'axios';
 
 const saveKeyData = "MYKEY";
 
 export async function getCareerSuggestionsFromGPT(userResponses: string[]): Promise<string> {
   const apiKeyString = localStorage.getItem(saveKeyData);
+
   if (!apiKeyString) {
-    throw new Error("No API key found. Please enter your API key first.");
+    return "No API key found. Please enter your API key first.";
   }
 
-  const apiKey = JSON.parse(apiKeyString);
+  let apiKey;
+  try {
+    apiKey = JSON.parse(apiKeyString);
+  } catch (e) {
+    return "Stored API key is invalid. Please re-enter your API key.";
+  }
 
   const prompt = `
 You are a helpful career advisor AI. Based on the following quiz answers, suggest 2-3 career paths that would match the user's skills, interests, and preferences.
 Answers: ${userResponses.join(", ")}
-Provide your suggestions in a friendly, short paragraph. Give me just the career options as a bulleted list but the ret keep in sentence/paragraph form.
+Provide your suggestions in a friendly, short paragraph. Give me just the career options as a bulleted list but the rest keep in sentence/paragraph form.
 `;
 
   try {
@@ -40,6 +45,6 @@ Provide your suggestions in a friendly, short paragraph. Give me just the career
     return response.data.choices[0].message.content.trim();
   } catch (error: any) {
     console.error(error);
-    throw new Error("Failed to fetch GPT-4 response. Please check your API key or network.");
+    return "Failed to fetch GPT-4 response. Please check your API key or your internet connection.";
   }
 }
