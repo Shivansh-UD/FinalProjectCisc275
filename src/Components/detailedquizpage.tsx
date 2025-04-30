@@ -1,7 +1,8 @@
 import './detailedquizpage.css';
 import React, { useState, useEffect } from 'react';
 import { Popup } from './popup';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
+import { getCareerSuggestionsFromGPT } from './openaiService'; 
 
 const dQuestion = [
   {
@@ -53,7 +54,7 @@ const dQuestion = [
   },
   {
     type: "scale",
-    question: "I like working in a fast paced environment",
+    question: "I like working in a fast-paced environment",
     scale: [1, 2, 3, 4, 5]
   },
   {
@@ -86,12 +87,14 @@ export function DetailedQuiz(): React.JSX.Element {
   const [answers, setAnswers] = useState<string[]>(Array(dQuestion.length).fill(""));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const [gptOutput, setGptOutput] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const percentDone = (answers.filter(ans => ans !== "").length / dQuestion.length) * 100;
 
-  function handleOptionSelect(value: string) {
+  function handleOptionSelect(answer: string) {
     const updated = [...answers];
-    updated[currentIndex] = value;
+    updated[currentIndex] = answer;
     setAnswers(updated);
   }
 
@@ -101,8 +104,19 @@ export function DetailedQuiz(): React.JSX.Element {
     }
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     setShowPopup(true);
+    setLoading(true);
+    try {
+      const response = await getCareerSuggestionsFromGPT(answers);
+      setGptOutput(response);
+      toast.success("Career suggestions generated!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to generate suggestions. Try again!");
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -111,18 +125,18 @@ export function DetailedQuiz(): React.JSX.Element {
     }
   }, [answers]);
 
-  const currentQuestion = dQuestion[currentIndex];
+  const currentQ = dQuestion[currentIndex];
 
   return (
     <div className="DTitle">
-      <h1>Detailed Career Quiz</h1>
+      <h1>Detailed Quiz</h1>
       <h2>Question {currentIndex + 1} of {dQuestion.length}</h2>
 
       <div className="detailed-question-section">
-        <p><strong>{currentQuestion.question}</strong></p>
+        <p><strong>{currentQ.question}</strong></p>
 
-        {currentQuestion.type === "mc" && currentQuestion.options?.map((option, idx) => (
-          <label key={idx}>
+        {currentQ.type === "mc" && currentQ.options?.map((option, idx) => (
+          <label key={idx} style={{ display: "block", margin: "8px 0" }}>
             <input
               type="radio"
               name={`q${currentIndex}`}
@@ -130,45 +144,54 @@ export function DetailedQuiz(): React.JSX.Element {
               checked={answers[currentIndex] === option}
               onChange={() => handleOptionSelect(option)}
             />
-            {option}
+            {" "}{option}
           </label>
         ))}
 
-        {currentQuestion.type === "text" && (
+        {currentQ.type === "text" && (
           <textarea
             rows={4}
-            cols={60}
             value={answers[currentIndex]}
             onChange={(e) => handleOptionSelect(e.target.value)}
-            placeholder="Type your answer here..."
+            placeholder="Type your response here..."
+            style={{ width: "100%", marginTop: "10px" }}
           />
         )}
 
-        {currentQuestion.type === "scale" && currentQuestion.scale?.map((num) => (
-          <label key={num} style={{ marginRight: "10px" }}>
+        {currentQ.type === "scale" && currentQ.scale?.map((val) => (
+          <label key={val} style={{ marginRight: "10px" }}>
             <input
               type="radio"
               name={`q${currentIndex}`}
-              value={String(num)}
-              checked={answers[currentIndex] === String(num)}
-              onChange={() => handleOptionSelect(String(num))}
+              value={val}
+              checked={answers[currentIndex] === String(val)}
+              onChange={() => handleOptionSelect(String(val))}
             />
-            {num}
+            {" "}{val}
           </label>
         ))}
       </div>
 
-      <div className="Dbar">
+      <div className="Dbar" style={{ marginTop: "20px" }}>
         <div className="detailed-progress-container">
-          <div className="detailed-progress-bar" style={{ width: `${percentDone}%` }} />
+          <div className="detailed-progress-bar" style={{ width: `${percentDone}%`, height: "10px", backgroundColor: "#d000ff" }} />
         </div>
       </div>
 
       {currentIndex < dQuestion.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleNext}>Next</button>
+        <button onClick={handleNext} style={{ marginTop: "20px" }}>Next</button>
       )}
       {currentIndex === dQuestion.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit} style={{ marginTop: "20px" }}>
+          {loading ? "Generating..." : "Submit"}
+        </button>
+      )}
+
+      {gptOutput && (
+        <div className="results-section" style={{ marginTop: "30px" }}>
+          <h2>Career Suggestions</h2>
+          <p>{gptOutput}</p>
+        </div>
       )}
 
       <Popup show={showPopup} onClose={() => setShowPopup(false)} />

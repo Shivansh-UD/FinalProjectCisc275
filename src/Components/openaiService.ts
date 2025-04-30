@@ -1,38 +1,51 @@
-export async function fetchCareerResults(answers: string[], quizType: 'basic' | 'detailed'): Promise<string> {
-    const key = localStorage.getItem("MYKEY");
-    if (!key) throw new Error("API key not found in local storage.");
-  
-    const parsedKey = JSON.parse(key);
-  
-    const systemPrompt = {
-      role: "system",
-      content: `You are a helpful career advisor AI. You will receive answers to a ${quizType} career quiz. Based on the user's answers, recommend suitable career paths. Explain your reasoning.`
-    };
-  
-    const userPrompt = {
-      role: "user",
-      content: `Here are the answers to the ${quizType} quiz:\n\n${answers.map((a, i) => `Q${i + 1}: ${a}`).join('\n')}`
-    };
-  
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${parsedKey}`
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo", //now works with free/default keys
-        messages: [systemPrompt, userPrompt],
-        temperature: 0.7
-      })
-    });
-  
-    const data = await response.json();
-  
-    if (!response.ok || !data.choices) {
-      throw new Error(data.error?.message || "Failed to fetch GPT response.");
-    }
-  
-    return data.choices[0].message.content;
+import axios from 'axios';
+
+const saveKeyData = "MYKEY";
+
+export async function getCareerSuggestionsFromGPT(userResponses: string[]): Promise<string> {
+  const apiKeyString = localStorage.getItem(saveKeyData);
+
+  if (!apiKeyString) {
+    return "No API key found. Please enter your API key first.";
   }
-  
+
+  let apiKey;
+  try {
+    apiKey = JSON.parse(apiKeyString);
+  } catch (e) {
+    return "Stored API key is invalid. Please re-enter your API key.";
+  }
+
+  const prompt = `
+You are a helpful career advisor AI. Based on the following quiz answers, suggest 2-3 career paths that would match the user's skills, interests, and preferences.
+Answers: ${userResponses.join(", ")}
+Provide your suggestions in a friendly, short sentences. Also give me just the career options that you suggest as a bulleted list/numbering order but the rest keep in sentence form.
+seperate the list and the sentence responses. MAINTAIN A LIST LIKE STRUCTURE FOR THE CAREER OPTIONS ONLY.
+`;
+
+  try {
+    const response = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          { role: "system", content: "You are a helpful career recommendation assistant." },
+          { role: "user", content: prompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 500
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    return response.data.choices[0].message.content.trim();
+  } catch (error: any) {
+    console.error(error);
+    return "Failed to fetch GPT-4 response. Please check your API key or your internet connection.";
+  }
+}
