@@ -6,16 +6,9 @@ import { HomePopup } from './homepopup';
 
 
 export function Home(): React.JSX.Element {
-  const [showPopup, setShowPopup] = useState(true); //State to handle username popup
-  const [name, setName] = useState<string | null>(null); //State to display username
+  const [showPopup, setShowPopup] = useState(true); 
+  const [name, setName] = useState<string | null>(null); 
 
-
-  //const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
-
-
-  // async function handleSubmit(){
-  //   setShowPopup(true);
-  // }
   return (
     <>
       {showPopup && (
