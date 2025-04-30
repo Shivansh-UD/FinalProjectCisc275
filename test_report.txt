@@ -50,7 +50,7 @@ All files              |       0 |        0 |       0 |       0 |
   reportWebVitals.ts   |       0 |        0 |       0 |       0 | 3-10              
  src/Components        |       0 |        0 |       0 |       0 |                   
   APIKeyForm.tsx       |       0 |        0 |       0 |       0 | 7-28              
-  aboutuspage.tsx      |       0 |      100 |       0 |       0 | 5                 
+  aboutuspage.tsx      |       0 |      100 |       0 |       0 | 6                 
   basicquizpage.tsx    |       0 |        0 |       0 |       0 | 7-123             
   detailedquizpage.tsx |       0 |        0 |       0 |       0 | 6-174             
   homepage.tsx         |       0 |      100 |       0 |       0 | 5                 
@@ -60,5 +60,5 @@ All files              |       0 |        0 |       0 |       0 |
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.361 s
+Time:        3.383 s
 Ran all test suites.
