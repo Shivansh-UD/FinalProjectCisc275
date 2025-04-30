@@ -120,6 +120,11 @@ export function BasicQuiz(): React.JSX.Element {
           <p>{gptOutput}</p>
         </div>
       )}
+      
+      {error && (
+        <p style={{ color: "red", marginTop: "20px" }}>{error}</p>
+      )}
+
 
       <Popup show={showPopup} onClose={() => setShowPopup(false)} />
       <Toaster />
