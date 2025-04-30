@@ -20,7 +20,7 @@ export function Popup({ show, onClose }: PopupProps): React.JSX.Element | null {
     <div className="popup-overlay">
       <div className="popup-box">
         <h2>You've completed the quiz!🥳🎉</h2>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>Close</button>
       </div>
     </div>  
   );
