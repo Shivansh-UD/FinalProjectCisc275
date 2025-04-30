@@ -21,7 +21,7 @@ export async function fetchCareerResults(answers: string[], quizType: 'basic' | 
         Authorization: `Bearer ${parsedKey}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo", // ✅ now works with free/default keys
+        model: "gpt-3.5-turbo", //now works with free/default keys
         messages: [systemPrompt, userPrompt],
         temperature: 0.7
       })
