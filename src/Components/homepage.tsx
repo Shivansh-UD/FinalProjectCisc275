@@ -1,16 +1,43 @@
 import './homepage.css';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { HomePopup } from './homepopup';
+
 
 export function Home(): React.JSX.Element {
+  const [showPopup, setShowPopup] = useState(true); //State to handle username popup
+  const [name, setName] = useState<string | null>(null); //State to display username
+
+
+  //const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
+
+
+  // async function handleSubmit(){
+  //   setShowPopup(true);
+  // }
   return (
+    <>
+      {showPopup && (
+        <div className="popup-container">
+          <HomePopup show={showPopup} onClose={() => setShowPopup(false)} setName={setName} />
+          <Toaster />
+        </div>
+      )}
+      <div className={showPopup ? 'blurred' : ''}>
     <div className="home-container">
       <div className="TitleText">
+        {name ? (
+          <h1>👋 Welcome, {name}!</h1>
+        ) : (
         <h1>🎯 Career Path Quiz</h1>
+    )}
         <h2>Discover the career that suits your personality and preferences.</h2>
         <p className="subtext">
           Take our interactive quizzes to match your strengths, interests, and lifestyle with real-world career paths.
         </p>
       </div>
+
 
       <div className="feature-grid">
         <div className="feature">🔍 Personalized Results</div>
@@ -18,6 +45,7 @@ export function Home(): React.JSX.Element {
         <div className="feature">🎓 Built by UD Students</div>
         <div className="feature">🧠 Based on Personality Research</div>
       </div>
+
 
       <div className="quiz-section">
         <Link to="/basic-quiz" className="quiz-link">
@@ -29,6 +57,7 @@ export function Home(): React.JSX.Element {
           </div>
         </Link>
 
+
         <Link to="/detailed-quiz" className="quiz-link">
           <div className="quiz-box">
             <h3>Detailed Assessment</h3>
@@ -39,9 +68,12 @@ export function Home(): React.JSX.Element {
         </Link>
       </div>
 
+
       <footer className="home-footer">
         <p>✨ “The future belongs to those who prepare for it today.” — Malcolm X</p>
       </footer>
     </div>
+    </div>
+    </>
   );
 }
