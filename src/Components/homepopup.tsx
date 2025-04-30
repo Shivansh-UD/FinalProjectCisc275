@@ -5,14 +5,20 @@ import { toast } from 'react-hot-toast';
 interface PopupProps {
   show: boolean;
   onClose: () => void;
+  setName: (name: string) => void;
 }
 
-export function HomePopup({ show, onClose }: PopupProps): React.JSX.Element | null {
-  if (!show) return null; 
+export function HomePopup({ show, onClose, setName }: PopupProps): React.JSX.Element | null {
 
+  const [inputValue, setInputValue] = React.useState('');
   const handleSubmit = () => {
-    toast.success('Please review the results to see your outcome.',{duration: 5000});
-    onClose(); // Call onClose to close the popup
+    if (inputValue.trim()) {
+      setName(inputValue); // set name in parent
+      toast.success(`Welcome, ${inputValue}!`, { duration: 5000 });
+      onClose();
+    } else {
+      toast.error('Please enter a name.');
+    }
   };
   
 
@@ -21,7 +27,7 @@ export function HomePopup({ show, onClose }: PopupProps): React.JSX.Element | nu
       <div className="popup-box">
         <h2>Enter your name:</h2>
         <div className="popup-content">
-            <input type="text"/>
+            <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
         </div>
         <button onClick={handleSubmit}>Submit</button>
       </div>

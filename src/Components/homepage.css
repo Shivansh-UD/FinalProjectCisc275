@@ -8,9 +8,13 @@
   color: white;
   padding: 40px 30px 20px;
   font-family: 'Segoe UI', sans-serif;
+}
+.blurred {
   filter: blur(8px);
   -webkit-filter: blur(8px);
+  transition: filter 0.3s ease;
 }
+
 
 @keyframes pulseBackground {
   0% { background-position: 0% 50%; }

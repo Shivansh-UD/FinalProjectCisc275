@@ -7,6 +7,9 @@ import { HomePopup } from './homepopup';
 
 export function Home(): React.JSX.Element {
   const [showPopup, setShowPopup] = useState(true); //State to handle username popup
+  const [name, setName] = useState<string | null>(null); //State to display username
+
+  const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
 
   async function handleSubmit(){
     setShowPopup(true);
@@ -15,13 +18,18 @@ export function Home(): React.JSX.Element {
     <>
       {showPopup && (
         <div className="popup-container">
-          <HomePopup show={showPopup} onClose={() => setShowPopup(false)} />
+          <HomePopup show={showPopup} onClose={() => setShowPopup(false)} setName={setName} />
           <Toaster />
         </div>
       )}
+      <div className={showPopup ? 'blurred' : ''}>
     <div className="home-container">
       <div className="TitleText">
+        {name ? (
+          <h1>👋 Welcome, {name}!</h1>
+        ) : (
         <h1>🎯 Career Path Quiz</h1>
+    )}
         <h2>Discover the career that suits your personality and preferences.</h2>
         <p className="subtext">
           Take our interactive quizzes to match your strengths, interests, and lifestyle with real-world career paths.
@@ -58,6 +66,7 @@ export function Home(): React.JSX.Element {
       <footer className="home-footer">
         <p>✨ “The future belongs to those who prepare for it today.” — Malcolm X</p>
       </footer>
+    </div>
     </div>
     </>
   );
