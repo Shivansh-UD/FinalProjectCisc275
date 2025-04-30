@@ -1,8 +1,24 @@
 import './homepage.css';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Popup } from './popup';
+import { Toaster } from 'react-hot-toast';
+import { HomePopup } from './homepopup';
 
 export function Home(): React.JSX.Element {
+  const [showPopup, setShowPopup] = useState(true); //State to handle username popup
+
+  async function handleSubmit(){
+    setShowPopup(true);
+  }
   return (
+    <>
+      {showPopup && (
+        <div className="popup-container">
+          <HomePopup show={showPopup} onClose={() => setShowPopup(false)} />
+          <Toaster />
+        </div>
+      )}
     <div className="home-container">
       <div className="TitleText">
         <h1>🎯 Career Path Quiz</h1>
@@ -43,5 +59,6 @@ export function Home(): React.JSX.Element {
         <p>✨ “The future belongs to those who prepare for it today.” — Malcolm X</p>
       </footer>
     </div>
+    </>
   );
 }

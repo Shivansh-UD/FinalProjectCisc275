@@ -8,6 +8,8 @@
   color: white;
   padding: 40px 30px 20px;
   font-family: 'Segoe UI', sans-serif;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
 }
 
 @keyframes pulseBackground {
@@ -125,4 +127,17 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.popup-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
