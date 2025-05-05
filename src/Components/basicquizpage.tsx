@@ -3,7 +3,7 @@ import './basicquizpage.css';
 import React, { useState } from 'react';
 import { Popup } from './popup';
 import { Toaster, toast } from 'react-hot-toast';
-import { getCareerSuggestionsFromGPT } from './openaiService'; // adjust path if needed
+import { getCareerSuggestionsFromGPT } from './openaiService'; 
 
 const bQuestions = [
   {
@@ -117,7 +117,11 @@ export function BasicQuiz(): React.JSX.Element {
       {gptOutput && (
         <div className="results-section" style={{ marginTop: "30px" }}>
           <h2>Career Suggestions</h2>
-          <p>{gptOutput}</p>
+          <div className="gpt-output">
+            {gptOutput.split("\n").map((line, idx) => (
+            <p key={idx}>{line}</p>
+            ))}
+          </div>
         </div>
       )}
       

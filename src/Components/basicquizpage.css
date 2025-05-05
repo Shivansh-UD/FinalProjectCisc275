@@ -110,3 +110,8 @@ button:hover {
   font-size: 22px;
   margin-bottom: 10px;
 }
+
+.gpt-output p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
