@@ -31,7 +31,7 @@ export function HomePopup({ show, onClose, setName }: PopupProps): React.JSX.Ele
       <div className="popup-box">
         <h2>Enter your name:</h2>
         <div className="popup-content">
-            <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+            <input placeholder="Please enter your name" type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
         </div>
         <button onClick={handleSubmit}>Submit</button>
       </div>
