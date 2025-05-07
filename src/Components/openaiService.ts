@@ -1,7 +1,12 @@
+// src/Components/openaiService.ts
 import axios from 'axios';
 
 const saveKeyData = "MYKEY";
 
+/**
+ * Fetches career suggestions from GPT based on user quiz responses.
+ * Reads API key from localStorage, builds prompt, and calls OpenAI's Chat API.
+ */
 export async function getCareerSuggestionsFromGPT(userResponses: string[]): Promise<string> {
   const apiKeyString = localStorage.getItem(saveKeyData);
 
@@ -9,7 +14,7 @@ export async function getCareerSuggestionsFromGPT(userResponses: string[]): Prom
     return "No API key found. Please enter your API key first.";
   }
 
-  let apiKey;
+  let apiKey: string;
   try {
     apiKey = JSON.parse(apiKeyString);
   } catch (e) {
@@ -31,17 +36,20 @@ Based on the following quiz answers, suggest 5-6 careers that match the user's s
 Quiz Answers: ${userResponses.join(", ")}
 `;
 
-
-  
-
   try {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-4",
         messages: [
-          { role: "system", content: "You are a helpful career recommendation assistant." },
-          { role: "user", content: prompt }
+          {
+            role: "system",
+            content: "You are a helpful career recommendation assistant."
+          },
+          {
+            role: "user",
+            content: prompt
+          }
         ],
         temperature: 0.7,
         max_tokens: 500
