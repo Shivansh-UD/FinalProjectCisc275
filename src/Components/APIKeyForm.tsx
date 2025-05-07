@@ -6,7 +6,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 const saveKeyData = "MYKEY";
-let inputKey = "";
+let inputKey = ""; // local variable instead of state
 
 export function APIKeyForm(): React.JSX.Element {
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
@@ -20,6 +20,7 @@ export function APIKeyForm(): React.JSX.Element {
     }
 
     try {
+      // Ping GPT to validate key
       await axios.post(
         "https://api.openai.com/v1/chat/completions",
         {
@@ -35,10 +36,10 @@ export function APIKeyForm(): React.JSX.Element {
         }
       );
 
+      // Save key to browser localStorage
       localStorage.setItem(saveKeyData, JSON.stringify(inputKey));
       toast.success("API Key Saved Successfully!");
       setTimeout(() => window.location.reload(), 1000);
-
     } catch (error) {
       console.error(error);
       toast.error("Invalid API Key. Please check and try again!");
@@ -48,7 +49,7 @@ export function APIKeyForm(): React.JSX.Element {
   return (
     <div className="api-form-container">
       <div className="form-card">
-        <h2>🔐 Enter Your OpenAI API Key</h2>
+        <h2 style={{ fontWeight: "bold" }}>🔐 Enter Your OpenAI API Key</h2>
         <p className="form-subtext">
           Your key is securely stored in your browser and never shared.
         </p>
