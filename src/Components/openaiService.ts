@@ -17,10 +17,22 @@ export async function getCareerSuggestionsFromGPT(userResponses: string[]): Prom
   }
 
   const prompt = `
-You are a helpful career advisor AI. Based on the following quiz answers, suggest 2-3 career paths that would match the user's skills, interests, and preferences.
-Answers: ${userResponses.join(", ")}
-Provide your suggestions in a friendly, short paragraph. Also give me just the career options as a bulleted list but the rest keep in sentence/paragraph form.
+You are a helpful career advisor AI.
+
+Based on the following quiz answers, suggest 5-6 careers that match the user's skills, interests, and preferences.
+
+**Instructions**:
+- First, list the career titles with their average salary in a clean numbered list.
+- Only put career name + salary — NO descriptions yet.
+- Example:
+    1. Software Engineer ($110,000)
+    2. Data Analyst ($75,000)
+
+Quiz Answers: ${userResponses.join(", ")}
 `;
+
+
+  
 
   try {
     const response = await axios.post(

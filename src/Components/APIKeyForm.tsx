@@ -45,6 +45,40 @@ export function APIKeyForm(): React.JSX.Element {
     }
   }
 
+  async function handleSubmit() {
+    if (!key.startsWith("sk-")) {
+      toast.error("API key must start with sk-");
+      return;
+    }
+
+    try {
+      // Try a small API call to check if the key works
+      await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-4",
+          messages: [{ role: "user", content: "Say hello" }],
+          max_tokens: 5,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${key}`,
+            "Content-Type": "application/json",
+          }
+        }
+      );
+
+      // If success, save the key
+      localStorage.setItem(saveKeyData, JSON.stringify(key));
+      toast.success("API Key Saved Successfully!");
+      setTimeout(() => window.location.reload(), 1000);
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Invalid API Key. Please check and try again!");
+    }
+  }
+
   return (
     <div className="api-form-container">
       <div className="form-card">

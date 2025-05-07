@@ -3,7 +3,7 @@ import './basicquizpage.css';
 import React, { useState } from 'react';
 import { Popup } from './popup';
 import { Toaster, toast } from 'react-hot-toast';
-import { getCareerSuggestionsFromGPT } from './openaiService'; // adjust path if needed
+import { getCareerSuggestionsFromGPT } from './openaiService'; 
 
 const bQuestions = [
   {
@@ -65,7 +65,7 @@ export function BasicQuiz(): React.JSX.Element {
       const response = await getCareerSuggestionsFromGPT(answers);
       setGptOutput(response);
       toast.success("Career suggestions generated!");
-      setShowPopup(true);  // ✅ Only show popup after GPT responds
+      setShowPopup(true);  
     } catch (err: any) {
       console.error(err);
       toast.error("Failed to get suggestions. Try again!");
@@ -113,16 +113,22 @@ export function BasicQuiz(): React.JSX.Element {
         </button>
       )}
 
-      {showPopup && (
+
+      {gptOutput && (
         <div className="results-section" style={{ marginTop: "30px" }}>
-          <h2>Career Recommendation:</h2>
-          {loading && <p>Loading GPT suggestions...</p>}
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {!loading && !error && (
-            <pre style={{ whiteSpace: "pre-wrap" }}>{gptOutput}</pre>
-          )}
+          <h2>Career Suggestions</h2>
+          <div className="gpt-output">
+            {gptOutput.split("\n").map((line, idx) => (
+            <p key={idx}>{line}</p>
+            ))}
+          </div>
         </div>
       )}
+      
+      {error && (
+        <p style={{ color: "red", marginTop: "20px" }}>{error}</p>
+      )}
+
 
       <Popup show={showPopup} onClose={() => setShowPopup(false)} />
       <Toaster />

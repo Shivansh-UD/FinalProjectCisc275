@@ -3,7 +3,7 @@ import './detailedquizpage.css';
 import React, { useState, useEffect } from 'react';
 import { Popup } from './popup';
 import { Toaster, toast } from 'react-hot-toast';
-import { getCareerSuggestionsFromGPT } from './openaiService'; // adjust path if needed
+import { getCareerSuggestionsFromGPT } from './openaiService'; 
 
 const dQuestion = [
   {
