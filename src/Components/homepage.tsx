@@ -1,14 +1,29 @@
 import './homepage.css';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { Popup } from './popup';
 import { Toaster } from 'react-hot-toast';
 import { HomePopup } from './homepopup';
 
-
 export function Home(): React.JSX.Element {
-  const [showPopup, setShowPopup] = useState(true); 
-  const [name, setName] = useState<string | null>(null); 
+  const [showPopup, setShowPopup] = useState(true); //State to handle username popup
+  const [name, setName] = useState<string | null>(null); //State to display username
 
+  React.useEffect(() => {
+    const storedName = localStorage.getItem('username');
+    if (storedName) {
+      setName(storedName);
+      setShowPopup(false); // don't show popup if name is stored
+    } else {
+      setShowPopup(true); // show popup to get the name
+    }
+  }, []);
+
+  const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
+
+  async function handleSubmit(){
+    setShowPopup(true);
+  }
   return (
     <>
       {showPopup && (
@@ -31,14 +46,12 @@ export function Home(): React.JSX.Element {
         </p>
       </div>
 
-
       <div className="feature-grid">
         <div className="feature">🔍 Personalized Results</div>
         <div className="feature">🕒 Just 5-7 Minutes</div>
         <div className="feature">🎓 Built by UD Students</div>
         <div className="feature">🧠 Based on Personality Research</div>
       </div>
-
 
       <div className="quiz-section">
         <Link to="/basic-quiz" className="quiz-link">
@@ -50,7 +63,6 @@ export function Home(): React.JSX.Element {
           </div>
         </Link>
 
-
         <Link to="/detailed-quiz" className="quiz-link">
           <div className="quiz-box">
             <h3>Detailed Assessment</h3>
@@ -60,7 +72,6 @@ export function Home(): React.JSX.Element {
           </div>
         </Link>
       </div>
-
 
       <footer className="home-footer">
         <p>✨ “The future belongs to those who prepare for it today.” — Malcolm X</p>
