@@ -1,26 +1,27 @@
 // src/Components/APIKeyForm.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './APIKeyForm.css';
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 const saveKeyData = "MYKEY";
-let inputKey = ""; // local variable instead of state
 
 export function APIKeyForm(): React.JSX.Element {
+  const [key, setKey] = useState<string>(localStorage.getItem(saveKeyData) ? JSON.parse(localStorage.getItem(saveKeyData)!) : "");
+
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
-    inputKey = event.target.value;
+    setKey(event.target.value);
   }
 
   async function handleSubmit() {
-    if (!inputKey.startsWith("sk-")) {
+    if (!key.startsWith("sk-")) {
       toast.error("API key must start with sk-");
       return;
     }
 
     try {
-      // Ping GPT to validate key
+      // Try a small API call to check if the key works
       await axios.post(
         "https://api.openai.com/v1/chat/completions",
         {
@@ -30,16 +31,17 @@ export function APIKeyForm(): React.JSX.Element {
         },
         {
           headers: {
-            Authorization: `Bearer ${inputKey}`,
+            Authorization: `Bearer ${key}`,
             "Content-Type": "application/json",
           }
         }
       );
 
-      // Save key to browser localStorage
-      localStorage.setItem(saveKeyData, JSON.stringify(inputKey));
+      // If success, save the key
+      localStorage.setItem(saveKeyData, JSON.stringify(key));
       toast.success("API Key Saved Successfully!");
       setTimeout(() => window.location.reload(), 1000);
+
     } catch (error) {
       console.error(error);
       toast.error("Invalid API Key. Please check and try again!");
@@ -49,7 +51,7 @@ export function APIKeyForm(): React.JSX.Element {
   return (
     <div className="api-form-container">
       <div className="form-card">
-        <h2 style={{ fontWeight: "bold" }}>🔐 Enter Your OpenAI API Key</h2>
+        <h2>🔐 Enter Your OpenAI API Key</h2>
         <p className="form-subtext">
           Your key is securely stored in your browser and never shared.
         </p>
@@ -58,6 +60,7 @@ export function APIKeyForm(): React.JSX.Element {
             type="password"
             placeholder="sk-..."
             onChange={changeKey}
+            value={key}
             className="key-input"
           />
           <div className="submit-button">
