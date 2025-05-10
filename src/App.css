@@ -1,16 +1,25 @@
+/* Light and Dark Mode Themes */
+body.dark {
+  background: linear-gradient(135deg, #000000, #1a001a);
+  color: white;
+}
+
+body.light {
+  background: linear-gradient(135deg, #ffffff, #eae6f8);
+  color: #111;
+}
+
 .App {
   text-align: center;
 }
 
 .App-header {
-  background: linear-gradient(135deg, #000000, #1a001a);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   font-size: calc(10px + 2vmin);
-  color: white;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -52,4 +61,26 @@
 .quiz-buttons Button:active {
   transform: translateY(2px);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+}
+
+.theme-toggle-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.theme-toggle-wrapper Button {
+  background-color: #d000ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle-wrapper Button:hover {
+  background-color: #a000cc;
 }

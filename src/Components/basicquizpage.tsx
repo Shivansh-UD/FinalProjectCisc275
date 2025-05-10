@@ -3,7 +3,7 @@ import './basicquizpage.css';
 import React, { useState } from 'react';
 import { Popup } from './popup';
 import { Toaster, toast } from 'react-hot-toast';
-import { getCareerSuggestionsFromGPT } from './openaiService'; 
+import { getCareerSuggestionsFromGPT } from './openaiService';
 
 const bQuestions = [
   {
@@ -44,7 +44,7 @@ export function BasicQuiz(): React.JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const percentDone = (answers.filter(ans => ans !== "").length / bQuestions.length) * 100;
+  const percentDone = Math.round((answers.filter(ans => ans !== "").length / bQuestions.length) * 100);
 
   function handleOptionSelect(option: string) {
     const updated = [...answers];
@@ -65,7 +65,7 @@ export function BasicQuiz(): React.JSX.Element {
       const response = await getCareerSuggestionsFromGPT(answers);
       setGptOutput(response);
       toast.success("Career suggestions generated!");
-      setShowPopup(true);  
+      setShowPopup(true);
     } catch (err: any) {
       console.error(err);
       toast.error("Failed to get suggestions. Try again!");
@@ -85,7 +85,7 @@ export function BasicQuiz(): React.JSX.Element {
       <div className="question-section">
         <p><strong>{currentQ.question}</strong></p>
         {currentQ.options.map((option, idx) => (
-          <label key={idx} style={{ display: "block", margin: "8px 0" }}>
+          <label key={idx}>
             <input
               type="radio"
               name={`q${currentIndex}`}
@@ -93,42 +93,40 @@ export function BasicQuiz(): React.JSX.Element {
               checked={answers[currentIndex] === option}
               onChange={() => handleOptionSelect(option)}
             />
-            {" "}{option}
+            {option}
           </label>
         ))}
       </div>
 
-      <div className="Bbar" style={{ marginTop: "20px" }}>
+      <div className="Bbar">
         <div className="progress-container">
-          <div className="progress-bar" style={{ width: `${percentDone}%`, height: "10px", backgroundColor: "#d000ff" }} />
+          <div className="progress-bar" style={{ width: `${percentDone}%` }} />
         </div>
       </div>
 
       {currentIndex < bQuestions.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleNext} style={{ marginTop: "20px" }}>Next</button>
+        <button onClick={handleNext}>Next</button>
       )}
       {currentIndex === bQuestions.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleSubmit} style={{ marginTop: "20px" }}>
+        <button onClick={handleSubmit}>
           {loading ? "Generating..." : "Submit"}
         </button>
       )}
 
-
       {gptOutput && (
-        <div className="results-section" style={{ marginTop: "30px" }}>
+        <div className="results-section">
           <h2>Career Suggestions</h2>
           <div className="gpt-output">
             {gptOutput.split("\n").map((line, idx) => (
-            <p key={idx}>{line}</p>
+              <p key={idx}>{line}</p>
             ))}
           </div>
         </div>
       )}
-      
+
       {error && (
         <p style={{ color: "red", marginTop: "20px" }}>{error}</p>
       )}
-
 
       <Popup show={showPopup} onClose={() => setShowPopup(false)} />
       <Toaster />

@@ -91,7 +91,7 @@ export function DetailedQuiz(): React.JSX.Element {
   const [gptOutput, setGptOutput] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const percentDone = (answers.filter(ans => ans !== "").length / dQuestion.length) * 100;
+  const percentDone = Math.round((answers.filter(ans => ans !== "").length / dQuestion.length) * 100);
 
   function handleOptionSelect(answer: string) {
     const updated = [...answers];
@@ -137,7 +137,7 @@ export function DetailedQuiz(): React.JSX.Element {
         <p><strong>{currentQ.question}</strong></p>
 
         {currentQ.type === "mc" && currentQ.options?.map((option, idx) => (
-          <label key={idx} style={{ display: "block", margin: "8px 0" }}>
+          <label key={idx}>
             <input
               type="radio"
               name={`q${currentIndex}`}
@@ -145,7 +145,7 @@ export function DetailedQuiz(): React.JSX.Element {
               checked={answers[currentIndex] === option}
               onChange={() => handleOptionSelect(option)}
             />
-            {" "}{option}
+            {option}
           </label>
         ))}
 
@@ -168,28 +168,28 @@ export function DetailedQuiz(): React.JSX.Element {
               checked={answers[currentIndex] === String(val)}
               onChange={() => handleOptionSelect(String(val))}
             />
-            {" "}{val}
+            {val}
           </label>
         ))}
       </div>
 
-      <div className="Dbar" style={{ marginTop: "20px" }}>
+      <div className="Dbar">
         <div className="detailed-progress-container">
-          <div className="detailed-progress-bar" style={{ width: `${percentDone}%`, height: "10px", backgroundColor: "#d000ff" }} />
+          <div className="detailed-progress-bar" style={{ width: `${percentDone}%` }} />
         </div>
       </div>
 
       {currentIndex < dQuestion.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleNext} style={{ marginTop: "20px" }}>Next</button>
+        <button onClick={handleNext}>Next</button>
       )}
       {currentIndex === dQuestion.length - 1 && answers[currentIndex] !== "" && (
-        <button onClick={handleSubmit} style={{ marginTop: "20px" }}>
+        <button onClick={handleSubmit}>
           {loading ? "Generating..." : "Submit"}
         </button>
       )}
 
       {gptOutput && (
-        <div className="results-section" style={{ marginTop: "30px" }}>
+        <div className="results-section">
           <h2>Career Suggestions</h2>
           <p>{gptOutput}</p>
         </div>

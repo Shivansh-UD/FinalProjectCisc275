@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Button } from 'react-bootstrap';
 import { Home } from './Components/homepage';
@@ -10,11 +10,27 @@ import { APIKeyForm } from './Components/APIKeyForm';
 
 function App() {
   const [quizSelected, setQuizSelected] = useState<'basic' | 'detailed' | null>(null);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    document.body.className = theme;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  }
 
   return (
     <Router>
       <div className="App">
         <header className="App-header">
+          <div className="theme-toggle-wrapper">
+            <Button onClick={toggleTheme}>
+              Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+            </Button>
+          </div>
+
           <div className="Page-Content">
             <Routes>
               <Route path="/" element={<Home />} />
