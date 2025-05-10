@@ -1,7 +1,7 @@
 // src/Components/basicquizpage.tsx
 import './basicquizpage.css';
 import React, { useState } from 'react';
-import { Popup } from './popup';
+import { useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import { getCareerSuggestionsFromGPT } from './openaiService';
 
@@ -39,10 +39,9 @@ const bQuestions = [
 export function BasicQuiz(): React.JSX.Element {
   const [answers, setAnswers] = useState<string[]>(Array(bQuestions.length).fill(""));
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showPopup, setShowPopup] = useState(false);
-  const [gptOutput, setGptOutput] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const percentDone = Math.round((answers.filter(ans => ans !== "").length / bQuestions.length) * 100);
 
@@ -62,10 +61,9 @@ export function BasicQuiz(): React.JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const response = await getCareerSuggestionsFromGPT(answers);
-      setGptOutput(response);
+      const result = await getCareerSuggestionsFromGPT(answers);
       toast.success("Career suggestions generated!");
-      setShowPopup(true);
+      navigate("/basic-results", { state: { result } });
     } catch (err: any) {
       console.error(err);
       toast.error("Failed to get suggestions. Try again!");
@@ -113,22 +111,7 @@ export function BasicQuiz(): React.JSX.Element {
         </button>
       )}
 
-      {gptOutput && (
-        <div className="results-section">
-          <h2>Career Suggestions</h2>
-          <div className="gpt-output">
-            {gptOutput.split("\n").map((line, idx) => (
-              <p key={idx}>{line}</p>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {error && (
-        <p style={{ color: "red", marginTop: "20px" }}>{error}</p>
-      )}
-
-      <Popup show={showPopup} onClose={() => setShowPopup(false)} />
+      {error && <p style={{ color: "red", marginTop: "20px" }}>{error}</p>}
       <Toaster />
     </div>
   );

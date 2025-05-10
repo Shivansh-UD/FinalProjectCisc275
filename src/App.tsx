@@ -1,3 +1,4 @@
+// src/App.tsx
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Button } from 'react-bootstrap';
@@ -7,6 +8,7 @@ import { BasicQuiz } from './Components/basicquizpage';
 import { DetailedQuiz } from './Components/detailedquizpage';
 import { AboutUs } from './Components/aboutuspage';
 import { APIKeyForm } from './Components/APIKeyForm';
+import { BasicQuizResults } from './Components/basicquizresults'; 
 
 function App() {
   const [quizSelected, setQuizSelected] = useState<'basic' | 'detailed' | null>(null);
@@ -35,6 +37,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/basic-quiz" element={<BasicQuiz />} />
+              <Route path="/basic-results" element={<BasicQuizResults />} />
               <Route path="/detailed-quiz" element={<DetailedQuiz />} />
               <Route path="/home-page" element={<Home />} />
               <Route path="/about-us-page" element={<AboutUs />} />
@@ -43,12 +46,22 @@ function App() {
           </div>
 
           <div className="quiz-buttons">
-            <Link to={quizSelected === 'detailed' ? '#' : '/basic-quiz'} style={{ pointerEvents: quizSelected === 'detailed' ? 'none' : 'auto' }}>
-              <Button onClick={() => setQuizSelected('basic')} disabled={quizSelected !== null}>Basic Quiz</Button>
+            <Link
+              to={quizSelected === 'detailed' ? '#' : '/basic-quiz'}
+              style={{ pointerEvents: quizSelected === 'detailed' ? 'none' : 'auto' }}
+            >
+              <Button onClick={() => setQuizSelected('basic')} disabled={quizSelected !== null}>
+                Basic Quiz
+              </Button>
             </Link>
 
-            <Link to={quizSelected === 'basic' ? '#' : '/detailed-quiz'} style={{ pointerEvents: quizSelected === 'basic' ? 'none' : 'auto' }}>
-              <Button onClick={() => setQuizSelected('detailed')} disabled={quizSelected !== null}>Detailed Quiz</Button>
+            <Link
+              to={quizSelected === 'basic' ? '#' : '/detailed-quiz'}
+              style={{ pointerEvents: quizSelected === 'basic' ? 'none' : 'auto' }}
+            >
+              <Button onClick={() => setQuizSelected('detailed')} disabled={quizSelected !== null}>
+                Detailed Quiz
+              </Button>
             </Link>
 
             <Link to="/home-page">
