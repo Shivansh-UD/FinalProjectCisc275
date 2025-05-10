@@ -9,6 +9,16 @@ export function Home(): React.JSX.Element {
   const [showPopup, setShowPopup] = useState(true); //State to handle username popup
   const [name, setName] = useState<string | null>(null); //State to display username
 
+  React.useEffect(() => {
+    const storedName = localStorage.getItem('username');
+    if (storedName) {
+      setName(storedName);
+      setShowPopup(false); // don't show popup if name is stored
+    } else {
+      setShowPopup(true); // show popup to get the name
+    }
+  }, []);
+
   const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
 
   async function handleSubmit(){

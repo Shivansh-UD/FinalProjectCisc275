@@ -12,8 +12,9 @@ export function HomePopup({ show, onClose, setName }: PopupProps): React.JSX.Ele
 
   const [inputValue, setInputValue] = React.useState('');
   const handleSubmit = () => {
+    localStorage.setItem('username', inputValue);
     if (inputValue.trim()) {
-      setName(inputValue); // set name in parent
+      setName(inputValue); 
       toast.success(`Welcome, ${inputValue}!`, { duration: 5000 });
       onClose();
     } else {
