@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Button } from 'react-bootstrap';
@@ -9,17 +8,20 @@ import { DetailedQuiz } from './Components/detailedquizpage';
 import { AboutUs } from './Components/aboutuspage';
 import { APIKeyForm } from './Components/APIKeyForm';
 import { BasicQuizResults } from './Components/basicquizresults';
-import { DetailedQuizResults } from './Components/detailedquizresults'; // ✅ ADD THIS LINE
+import { DetailedQuizResults } from './Components/detailedquizresults'; 
 
 function App() {
   const [quizSelected, setQuizSelected] = useState<'basic' | 'detailed' | null>(null);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
 
+
+  //Hook to change the theme 
   useEffect(() => {
     document.body.className = theme;
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  //function for changin the theme 
   function toggleTheme() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }
@@ -34,13 +36,16 @@ function App() {
             </Button>
           </div>
 
+
+
+          {/**Routing of all the pages upon the click of different buttons */}
           <div className="Page-Content">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/basic-quiz" element={<BasicQuiz />} />
               <Route path="/basic-results" element={<BasicQuizResults />} />
               <Route path="/detailed-quiz" element={<DetailedQuiz />} />
-              <Route path="/detailed-results" element={<DetailedQuizResults />} /> {/* ✅ NEW ROUTE */}
+              <Route path="/detailed-results" element={<DetailedQuizResults />} /> 
               <Route path="/home-page" element={<Home />} />
               <Route path="/about-us-page" element={<AboutUs />} />
               <Route path="/api-key-form-page" element={<APIKeyForm />} />

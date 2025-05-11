@@ -1,7 +1,7 @@
 import './homepage.css';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { Popup } from './popup';
+// import { Popup } from './popup';
 import { Toaster } from 'react-hot-toast';
 import { HomePopup } from './homepopup';
 
@@ -19,11 +19,16 @@ export function Home(): React.JSX.Element {
     }
   }, []);
 
-  const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
+  // const containerClass = showPopup ? 'home-container blurred' : 'home-container'; //unblurs homepage when user submits name
 
-  async function handleSubmit(){
-    setShowPopup(true);
-  }
+  // async function handleSubmit(){
+  //   setShowPopup(true);
+  // }
+
+
+
+
+  /**Not alot of complicated logic here but we are uising popup and better designing for the home page here */
   return (
     <>
       {showPopup && (

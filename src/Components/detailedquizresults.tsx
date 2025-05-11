@@ -1,4 +1,3 @@
-// src/Components/DetailedQuizResults.tsx
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './detailedquizresults.css';
@@ -9,6 +8,8 @@ export function DetailedQuizResults(): React.JSX.Element {
   const navigate = useNavigate();
   const result = location.state?.result;
 
+
+  //Function to genearte PDF file 
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(18);

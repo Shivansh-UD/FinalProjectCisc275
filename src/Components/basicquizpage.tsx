@@ -1,10 +1,11 @@
-// src/Components/basicquizpage.tsx
 import './basicquizpage.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import { getCareerSuggestionsFromGPT } from './openaiService';
 
+
+//Storing Questions 
 const bQuestions = [
   {
     question: "What’s your highest level of education?",
@@ -36,6 +37,10 @@ const bQuestions = [
   }
 ];
 
+
+/*
+ * ALOT OF THE STUFF WE ARE DOING IN THIS COMPONENT, IS THE SAME STUFF IN THE DETAILED QUIZ THE MAIN DIFFERENCE IS THAT TYPE OF QUESTIONS BEING ASKED BY BOTH QUIZZES.
+ */
 export function BasicQuiz(): React.JSX.Element {
   const [answers, setAnswers] = useState<string[]>(Array(bQuestions.length).fill(""));
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,8 +48,10 @@ export function BasicQuiz(): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  //calculating the progress of the quiz here using this formula 
   const percentDone = Math.round((answers.filter(ans => ans !== "").length / bQuestions.length) * 100);
 
+  //logic for storing the answer choices
   function handleOptionSelect(option: string) {
     const updated = [...answers];
     updated[currentIndex] = option;
@@ -57,6 +64,7 @@ export function BasicQuiz(): React.JSX.Element {
     }
   }
 
+  //What happens when submit is clicked
   async function handleSubmit() {
     setLoading(true);
     setError(null);
@@ -80,6 +88,7 @@ export function BasicQuiz(): React.JSX.Element {
       <h1>Basic Quiz</h1>
       <h2>Question {currentIndex + 1} of {bQuestions.length}</h2>
 
+      {/**Since we only have multiple choice questions here, this is why there is only "radio" type here */}
       <div className="question-section">
         <p><strong>{currentQ.question}</strong></p>
         {currentQ.options.map((option, idx) => (

@@ -1,7 +1,10 @@
-// src/Components/aboutuspage.tsx
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';//feature built into react for Linkedin or other types of link usage
 import './aboutuspage.css';
 
+/**
+ * 
+ * Here we are adding everyone teamates names, emails and Linkedin Profiles to our about us page
+ */
 export function AboutUs(): React.JSX.Element {
   return (
     <div className="about-container">

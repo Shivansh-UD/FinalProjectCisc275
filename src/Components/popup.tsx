@@ -7,11 +7,13 @@ interface PopupProps {
   onClose: () => void;
 }
 
+
+//Using prop here so that we can also use the same component feature in both quizzes so we dont have to write code over and over again
 export function Popup({ show, onClose }: PopupProps): React.JSX.Element | null {
   if (!show) return null; 
 
   const handleSubmit = () => {
-    toast.success('Please review the results to see your outcome.',{duration: 5000});
+    toast.success('Please review the results to see your outcome.',{duration: 5000});//stays for 5 seconds (1000=1 second)
     onClose(); // Call onClose to close the popup
   };
   
