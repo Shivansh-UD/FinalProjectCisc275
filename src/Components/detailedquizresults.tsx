@@ -1,10 +1,10 @@
-// src/Components/BasicQuizResults.tsx
+// src/Components/DetailedQuizResults.tsx
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './basicquizresults.css';
+import './detailedquizresults.css';
 import jsPDF from 'jspdf';
 
-export function BasicQuizResults(): React.JSX.Element {
+export function DetailedQuizResults(): React.JSX.Element {
   const location = useLocation();
   const navigate = useNavigate();
   const result = location.state?.result;

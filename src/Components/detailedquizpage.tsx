@@ -1,9 +1,9 @@
 // src/Components/detailedquizpage.tsx
 import './detailedquizpage.css';
-import React, { useState, useEffect } from 'react';
-import { Popup } from './popup';
+import React, { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
-import { getCareerSuggestionsFromGPT } from './openaiService'; 
+import { getCareerSuggestionsFromGPT } from './openaiService';
+import { useNavigate } from 'react-router-dom';
 
 const dQuestion = [
   {
@@ -87,9 +87,8 @@ const dQuestion = [
 export function DetailedQuiz(): React.JSX.Element {
   const [answers, setAnswers] = useState<string[]>(Array(dQuestion.length).fill(""));
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showPopup, setShowPopup] = useState(false);
-  const [gptOutput, setGptOutput] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const percentDone = Math.round((answers.filter(ans => ans !== "").length / dQuestion.length) * 100);
 
@@ -106,12 +105,11 @@ export function DetailedQuiz(): React.JSX.Element {
   }
 
   async function handleSubmit() {
-    setShowPopup(true);
     setLoading(true);
     try {
       const response = await getCareerSuggestionsFromGPT(answers);
-      setGptOutput(response);
       toast.success("Career suggestions generated!");
+      navigate('/detailed-results', { state: { result: response } });
     } catch (error) {
       console.error(error);
       toast.error("Failed to generate suggestions. Try again!");
@@ -119,12 +117,6 @@ export function DetailedQuiz(): React.JSX.Element {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    if (answers.every(ans => ans !== "")) {
-      setShowPopup(true);
-    }
-  }, [answers]);
 
   const currentQ = dQuestion[currentIndex];
 
@@ -188,14 +180,6 @@ export function DetailedQuiz(): React.JSX.Element {
         </button>
       )}
 
-      {gptOutput && (
-        <div className="results-section">
-          <h2>Career Suggestions</h2>
-          <p>{gptOutput}</p>
-        </div>
-      )}
-
-      <Popup show={showPopup} onClose={() => setShowPopup(false)} />
       <Toaster />
     </div>
   );
