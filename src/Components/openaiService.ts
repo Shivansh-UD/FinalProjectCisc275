@@ -1,4 +1,3 @@
-// src/Components/openaiService.ts
 import axios from 'axios';
 
 const saveKeyData = "MYKEY";

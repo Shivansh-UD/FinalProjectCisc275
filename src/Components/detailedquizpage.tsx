@@ -1,4 +1,3 @@
-// src/Components/detailedquizpage.tsx
 import './detailedquizpage.css';
 import React, { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
@@ -128,6 +127,8 @@ export function DetailedQuiz(): React.JSX.Element {
       <div className="detailed-question-section">
         <p><strong>{currentQ.question}</strong></p>
 
+
+        {/**Handling the Multiple choice question*/}
         {currentQ.type === "mc" && currentQ.options?.map((option, idx) => (
           <label key={idx}>
             <input
@@ -140,7 +141,8 @@ export function DetailedQuiz(): React.JSX.Element {
             {option}
           </label>
         ))}
-
+      
+        {/**Handeling the Textbox questions */}
         {currentQ.type === "text" && (
           <textarea
             rows={4}
@@ -151,6 +153,8 @@ export function DetailedQuiz(): React.JSX.Element {
           />
         )}
 
+
+        {/**Handeling the Scale questions */}
         {currentQ.type === "scale" && currentQ.scale?.map((val) => (
           <label key={val} style={{ marginRight: "10px" }}>
             <input

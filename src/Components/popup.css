@@ -11,7 +11,6 @@
   z-index: 9999;  
 }
 
-/* Popup container */
 .popup-box {
   padding: 20px;
   border-radius: 10px;
@@ -19,13 +18,11 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Dark mode popup */
 body.dark .popup-box {
   background-color: rgb(212, 0, 255);
   color: white;
 }
 
-/* Light mode popup */
 body.light .popup-box {
   background-color: #ffffff;
   color: #222;
