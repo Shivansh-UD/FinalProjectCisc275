@@ -1,22 +1,39 @@
 .api-form-container {
   display: flex;
   justify-content: center;
-  background: linear-gradient(135deg, #000000, #1a001a);
-  color: white;
-  padding: 30px 20px 10px; /* Reduced bottom padding */
+  padding: 30px 20px 10px;
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* Background color by theme */
+body.dark .api-form-container {
+  background: linear-gradient(135deg, #000000, #1a001a);
+  color: white;
+}
+
+body.light .api-form-container {
+  background: linear-gradient(135deg, #ffffff, #f3eaff);
+  color: #111;
+}
+
 .form-card {
-  background-color: #1a1a1a;
   padding: 50px;
   border-radius: 18px;
-  box-shadow: 0 0 30px rgba(208, 0, 255, 0.12);
   max-width: 650px;
   width: 100%;
   text-align: center;
-  margin-top: 40px; /* Add this to simulate spacing */
+  margin-top: 40px;
   animation: fadeInUp 0.6s ease;
+  box-shadow: 0 0 30px rgba(208, 0, 255, 0.12);
+}
+
+body.dark .form-card {
+  background-color: #1a1a1a;
+}
+
+body.light .form-card {
+  background-color: #f8f4ff;
+  box-shadow: 0 0 24px rgba(150, 0, 255, 0.1);
 }
 
 .form-card h2 {
@@ -27,20 +44,37 @@
 }
 
 .form-subtext {
-  color: #aaa;
   font-size: 16px;
   margin-bottom: 30px;
 }
 
+body.dark .form-subtext {
+  color: #aaa;
+}
+
+body.light .form-subtext {
+  color: #555;
+}
+
 .key-input {
-  background-color: #2a2a2a;
-  border: 1px solid #555;
-  color: white;
   padding: 14px;
   border-radius: 8px;
   font-size: 18px;
   margin-bottom: 25px;
   width: 100%;
+  border: 1px solid;
+}
+
+body.dark .key-input {
+  background-color: #2a2a2a;
+  color: white;
+  border-color: #555;
+}
+
+body.light .key-input {
+  background-color: #ffffff;
+  color: #111;
+  border-color: #bbb;
 }
 
 .submit-button Button {

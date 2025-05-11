@@ -1,44 +1,67 @@
 .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);  
-    display: flex;
-    justify-content: center;  
-    align-items: center;  
-    z-index: 9999;  
-  }
-  
-  /* Popup box that will appear in the center */
-  .popup-box {
-    background-color: rgb(212, 0, 255);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
-  
-  .popup-box button {
-    background-color: #000000;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgb(255, 255, 255); 
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .popup-box button:hover {
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); 
-    transform: translateY(-2px); 
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);  
+  display: flex;
+  justify-content: center;  
+  align-items: center;  
+  z-index: 9999;  
+}
 
-  .popup-box button:active{
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); 
-    transform: translateY(2px); 
-  }
-  
+/* Popup container */
+.popup-box {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode popup */
+body.dark .popup-box {
+  background-color: rgb(212, 0, 255);
+  color: white;
+}
+
+/* Light mode popup */
+body.light .popup-box {
+  background-color: #ffffff;
+  color: #222;
+  border: 1px solid #ccc;
+}
+
+/* Button style shared */
+.popup-box button {
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Dark mode button */
+body.dark .popup-box button {
+  background-color: #000000;
+  color: white;
+  box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.2); 
+}
+
+/* Light mode button */
+body.light .popup-box button {
+  background-color: #d000ff;
+  color: white;
+  box-shadow: 0px 4px 6px rgba(150, 0, 255, 0.3); 
+}
+
+.popup-box button:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.popup-box button:active {
+  transform: translateY(2px); 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
