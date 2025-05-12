@@ -49,14 +49,14 @@ body.light .popup-box {
 
 /* Dark mode button */
 body.dark .popup-box button {
-  background-color: #1bba3b;
+  background-color: #000000;
   color: white;
   box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.2);
 }
 
 /* Light mode button */
 body.light .popup-box button {
-  background-color: #1bba3b;
+  background-color: #000000;
   color: white;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
