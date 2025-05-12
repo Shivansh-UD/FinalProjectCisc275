@@ -1,3 +1,4 @@
+// src/Components/BasicQuizResults.tsx
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './basicquizresults.css';
@@ -8,13 +9,16 @@ export function BasicQuizResults(): React.JSX.Element {
   const navigate = useNavigate();
   const result = location.state?.result;
 
-  //Generating PDF function
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(18);
     doc.text("Your Career Suggestions", 20, 20);
     doc.setFontSize(12);
-    const lines = doc.splitTextToSize(result || "No result available", 170);
+
+    // Remove most emojis from result text for PDF output
+    const emojiRegex = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+    const cleanResult = (result || "No result available").replace(emojiRegex, '');
+    const lines = doc.splitTextToSize(cleanResult, 170);
     doc.text(lines, 20, 30);
     doc.save("career-suggestions.pdf");
   };
