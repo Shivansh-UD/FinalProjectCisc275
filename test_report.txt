@@ -48,12 +48,12 @@ All files                 |       0 |        0 |       0 |       0 |
   index.tsx               |       0 |      100 |     100 |       0 | 7-19              
   reportWebVitals.ts      |       0 |        0 |       0 |       0 | 3-10              
  src/Components           |       0 |        0 |       0 |       0 |                   
-  APIKeyForm.tsx          |       0 |        0 |       0 |       0 | 7-47              
+  APIKeyForm.tsx          |       0 |        0 |       0 |       0 | 8-51              
   aboutuspage.tsx         |       0 |      100 |       0 |       0 | 9                 
   basicquizpage.tsx       |       0 |        0 |       0 |       0 | 9-101             
-  basicquizresults.tsx    |       0 |        0 |       0 |       0 | 7-46              
+  basicquizresults.tsx    |       0 |        0 |       0 |       0 | 8-50              
   detailedquizpage.tsx    |       0 |        0 |       0 |       0 | 7-165             
-  detailedquizresults.tsx |       0 |        0 |       0 |       0 | 7-47              
+  detailedquizresults.tsx |       0 |        0 |       0 |       0 | 8-51              
   homepage.tsx            |       0 |        0 |       0 |       0 | 9-36              
   homepopup.tsx           |       0 |        0 |       0 |       0 | 13-31             
   openaiService.ts        |       0 |        0 |       0 |       0 | 3-98              
@@ -62,5 +62,5 @@ All files                 |       0 |        0 |       0 |       0 |
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.375 s
+Time:        3.439 s
 Ran all test suites.
