@@ -1,0 +1,66 @@
+
+> starter_helpi@0.1.0 test
+> react-scripts test --coverage
+
+FAIL src/App.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/App.tsx'
+
+    Require stack:
+      src/App.tsx
+      src/App.test.tsx
+
+      2 | import './App.css';
+      3 | import { Button } from 'react-bootstrap';
+    > 4 | import { HashRouter as Router, Route, Routes, Link } from 'react-router-dom';
+        | ^
+      5 | import { Home } from './Components/homepage';
+      6 | import { BasicQuiz } from './Components/basicquizpage';
+      7 | import { DetailedQuiz } from './Components/detailedquizpage';
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/App.tsx:4:1)
+      at Object.<anonymous> (src/App.test.tsx:3:1)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+[0;33mOne of your dependencies, babel-preset-react-app, is importing the
+"@babel/plugin-proposal-private-property-in-object" package without
+declaring it in its dependencies. This is currently working because
+"@babel/plugin-proposal-private-property-in-object" is already in your
+node_modules folder for unrelated reasons, but it [1mmay break at any time[0;33m.
+
+babel-preset-react-app is part of the create-react-app project, [1mwhich
+is not maintianed anymore[0;33m. It is thus unlikely that this bug will
+ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
+your devDependencies to work around this error. This will make this message
+go away.[0m
+  
+--------------------------|---------|----------|---------|---------|-------------------
+File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------|---------|----------|---------|---------|-------------------
+All files                 |       0 |        0 |       0 |       0 |                   
+ src                      |       0 |        0 |       0 |       0 |                   
+  App.tsx                 |       0 |        0 |       0 |       0 | 14-83             
+  index.tsx               |       0 |      100 |     100 |       0 | 7-19              
+  reportWebVitals.ts      |       0 |        0 |       0 |       0 | 3-10              
+ src/Components           |       0 |        0 |       0 |       0 |                   
+  APIKeyForm.tsx          |       0 |        0 |       0 |       0 | 8-51              
+  aboutuspage.tsx         |       0 |      100 |       0 |       0 | 9                 
+  basicquizpage.tsx       |       0 |        0 |       0 |       0 | 9-101             
+  basicquizresults.tsx    |       0 |        0 |       0 |       0 | 8-50              
+  detailedquizpage.tsx    |       0 |        0 |       0 |       0 | 7-165             
+  detailedquizresults.tsx |       0 |        0 |       0 |       0 | 8-51              
+  homepage.tsx            |       0 |        0 |       0 |       0 | 9-36              
+  homepopup.tsx           |       0 |        0 |       0 |       0 | 13-31             
+  openaiService.ts        |       0 |        0 |       0 |       0 | 3-98              
+  popup.tsx               |       0 |        0 |       0 |       0 | 13-21             
+--------------------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        3.572 s
+Ran all test suites.
