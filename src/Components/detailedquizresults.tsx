@@ -14,7 +14,12 @@ export function DetailedQuizResults(): React.JSX.Element {
     doc.setFontSize(18);
     doc.text("Your Career Suggestions", 20, 20);
     doc.setFontSize(12);
-    const lines = doc.splitTextToSize(result || "No result available", 170);
+
+    // Regex to remove most common emojis
+    const emojiRegex = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+
+    const cleanResult = (result || "No result available").replace(emojiRegex, '');
+    const lines = doc.splitTextToSize(cleanResult, 170);
     doc.text(lines, 20, 30);
     doc.save("career-suggestions.pdf");
   };
